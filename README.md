@@ -72,3 +72,15 @@ There are some additional components that you will need to be successful:
 - A **USB Keyboard and Mouse** for the Raspberry Pi 
 
 - A **Micro SD** or **SD Card Reader** for your PC. 
+
+## Hands-On-Labs (HOLs)
+
+This workshop has a number of Hands-On-Labs for you to walk through.  The overall workflow has been broken into a series of individual labs, but they are intended to be completed in order. 
+
+| **Lab** | **Description**                   |
+|:-------:|----------------------------------:|
+|    1    | [Installing Windows 10 IoT Core](./HOLs/01-InstallingWindows10IotCore/Readme.htm)    |
+|    2    | [Blinking the LED with UWP]((./HOLs/02-BlinkingTheLEDWithUWP/Readme.htm))         |
+|    3    | [Working with Analog Sensors]((./HOLs/03-WorkingWithAnalogSensors/Readme.htm))       |
+|    4    | [Intro to Azure IoT Hubs]((./HOLs/04-IntroToAzureIoTHubs/Readme.htm))           |
+
