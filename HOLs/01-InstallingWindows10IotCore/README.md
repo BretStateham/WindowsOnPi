@@ -36,7 +36,7 @@ To boot your Raspberry Pi 2 off of Windows 10 IoT Core we need to get the Window
 
 While specific steps will be outlined here, you can always find the latest Windows 10 IoT Core installation Instructions here: <a href="http://ms-iot.github.io/content/en-US/GetStarted.htm"  target="_blank">http://ms-iot.github.io/content/en-US/GetStarted.htm</a>
 
-1. Download the [Windows 10 IoT Core image ISO](http://go.microsoft.com/fwlink/?LinkId=691711)
+1. Download the <a href="http://go.microsoft.com/fwlink/?LinkId=691711" target="_blank">Windows 10 IoT Core image ISO</a>
 
 	> **Note:** If you are at an in-person workshop, the required download files may have been provided on a USB drive or via some alternative source.  Please refer to the event specific locations if they exist.  The ISO file download is appx. 500MB in size and can cause issues when downloading over the event WiFi simultaneously with other event attendees. 
 
