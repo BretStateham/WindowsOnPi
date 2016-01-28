@@ -34,7 +34,7 @@ There are no specific setup steps required prior to starting this lab other than
 
 To boot your Raspberry Pi 2 off of Windows 10 IoT Core we need to get the Windows 10 IoT Core operating system flashed on the Micro SD card used by the Raspberry Pi 2.  This requires that we first install some tools and the source image file on our computer. 
 
-While specific steps will be outlined here, you can always find the latest Windows 10 IoT Core installation Instructions here: [http://ms-iot.github.io/content/en-US/GetStarted.htm](http://ms-iot.github.io/content/en-US/GetStarted.htm)
+While specific steps will be outlined here, you can always find the latest Windows 10 IoT Core installation Instructions here: <a href="http://ms-iot.github.io/content/en-US/GetStarted.htm"  target="_blank">http://ms-iot.github.io/content/en-US/GetStarted.htm</a>
 
 1. Download the [Windows 10 IoT Core image ISO](http://go.microsoft.com/fwlink/?LinkId=691711)
 
