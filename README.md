@@ -87,19 +87,19 @@ This workshop has a number of Hands-On-Labs for you to walk through.  The overal
   <tbody>
     <tr>
       <td>1</td>
-      <td>[Installing Windows 10 IoT Core](./HOLs/01-InstallingWindows10IotCore/)</td>
+      <td><a href="./HOLs/01-InstallingWindows10IotCore/">Installing Windows 10 IoT Core</a></td>
     </tr>
     <tr>
       <td>2</td>
-      <td>[Blinking the LED with UWP](./HOLs/02-BlinkingTheLEDWithUWP/)</td>
+      <td><a href="./HOLs/02-BlinkingTheLEDWithUWP/">Blinking the LED with UWP</a></td>
     </tr>
     <tr>
       <td>3</td>
-      <td>[Working with Analog Sensors](./HOLs/03-WorkingWithAnalogSensors/)</td>
+      <td><a href="./HOLs/03-WorkingWithAnalogSensors/">Working with Analog Sensors</a></td>
     </tr>
     <tr>
       <td>4</td>
-      <td>[Intro to Azure IoT Hubs](./HOLs/04-IntroToAzureIoTHubs/)</td>
+      <td><a href="./HOLs/04-IntroToAzureIoTHubs/">Intro to Azure IoT Hubs</a></td>
     </tr>
   </tbody>
 </table>
