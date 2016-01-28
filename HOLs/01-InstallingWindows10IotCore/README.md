@@ -36,7 +36,7 @@ To boot your Raspberry Pi 2 off of Windows 10 IoT Core we need to get the Window
 
 While specific steps will be outlined here, you can always find the latest Windows 10 IoT Core installation Instructions here: <a href="http://ms-iot.github.io/content/en-US/GetStarted.htm"  target="_blank">http://ms-iot.github.io/content/en-US/GetStarted.htm</a>
 
-1. Download the <a href="http://go.microsoft.com/fwlink/?LinkId=691711" target="_blank">Windows 10 IoT Core image ISO</a>
+1. Download the <a href="http://ms-iot.github.io/content/en-US/Downloads.htm" target="_blank">Windows 10 IoT Core for Raspberry Pi 2 ISO</a> (<a href="http://go.microsoft.com/fwlink/?LinkId=691711" target="_blank">Direct Download Link</a>)
 
 	> **Note:** If you are at an in-person workshop, the required download files may have been provided on a USB drive or via some alternative source.  Please refer to the event specific locations if they exist.  The ISO file download is appx. 500MB in size and can cause issues when downloading over the event WiFi simultaneously with other event attendees. 
 
@@ -213,9 +213,9 @@ Later, when we push data to Azure, we need the time on the Pi to be correct.  It
 
 If that time does not match the current time, we need to fix it.  Event if your time is correct, you should complete the steps in this task.  They will teach you how to connect to your Pi via SSH.  
 
-For this task, we will use SSH to remotely connect to the command prompt on the Pi to set the time.  You could also use [Remote PowerShell](https://ms-iot.github.io/content/en-US/win10/samples/PowerShell.htm) for this, but for this lab [we will use SSH](http://ms-iot.github.io/content/en-US/win10/samples/SSH.htm).  This means that you will need an SSH client on your Windows computer (SSH isn't currently built-in in Windows).  For this lab, we recommend using [PuTTY](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe) but any ssh client will do.  You just need to know how to use it if you use anything other than PuTTY. 
+For this task, we will use SSH to remotely connect to the command prompt on the Pi to set the time.  You could also use <a href="https://ms-iot.github.io/content/en-US/win10/samples/PowerShell.htm" target="_blank">Remote PowerShell</a> for this, but for this lab <a href="http://ms-iot.github.io/content/en-US/win10/samples/SSH.htm" target="_blank">we will use SSH</a>.  This means that you will need an SSH client on your Windows computer (SSH isn't currently built-in in Windows).  For this lab, we recommend using <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe" target="_blank">PuTTY</a> but any ssh client will do.  You just need to know how to use it if you use anything other than PuTTY. 
 
-1. If necessary, [download and install the PuTTY SSH Client](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe)   
+1. If necessary, <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe" target="_blank">download and install the PuTTY SSH Client</a>   
 
 1. Once installed, from the Windows "**Start Menu**", select "**All Apps**" | "**PuTTY**" | "**PuTTY**"
 
@@ -295,4 +295,4 @@ For this task, we will use SSH to remotely connect to the command prompt on the 
 
 	![04110-SetTime](images/04110-settime.png?raw=true "Set Time")
 
-1. You can run most any standard Windows command prompt command from the SSH window.  You can check the online documentation for a list of [common command line utilities](http://ms-iot.github.io/content/en-US/win10/tools/CommandLineUtils.htm)
+1. You can run most any standard Windows command prompt command from the SSH window.  You can check the online documentation for a list of <a href="http://ms-iot.github.io/content/en-US/win10/tools/CommandLineUtils.htm" target="_blank">common command line utilities</a>
