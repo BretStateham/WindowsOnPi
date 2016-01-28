@@ -24,7 +24,7 @@ There are no specific setup steps required prior to starting this lab other than
 
 - [Task 1: Install the Windows 10 IoT Core for Raspberry Pi 2 Tools on your PC](#Task1)
 - [Task 2: Flash the SD Card with Windows 10 IoT Core](#Task2)
-- [Task 3: Finally Do This](#Task3)
+- [Task 3: Setting up the Pi and Booting off Windows](#Task3)
 
 ---
 
@@ -73,20 +73,70 @@ While specific steps will be outlined here, you can always find the latest Windo
 
 In this task, we'll use the utilities and image we installed in the previous task to flash the Micro SD card with Windows 10 IoT Core.  
 
-1. Step 1
-1. Step 2
-1. Step 3
+1. Start by first mounting the Micro SD Card on your computer.
 
+	> **Note**: Use an external SD Card Reader and Micro SD to SD Adapter as needed. 
+
+	![02010-MountMicroSDCard](images/02010-MountMicroSDCard.png?raw=true "Mount Micro SD Card on your Computer")
+
+1. Once the card is inserted, identify the drive letter associated with the SD Card
+
+	> **Note**: Take care to identify the correct drive letter  if you have multiple SD cards mounted on your system.  You don't want to accidentally flash the OS to the wrong SD card. 
+
+	![02020-SDCardDriveLetter](images/02020-sdcarddriveletter.png?raw=true "SD Card Drive Letter")
+
+1. Then press the Windows Key on your computer to open the Windows Start Menu, then type "WindowsIoTImageHelper" to search for the imaging utility we installed previously
+
+	> **Note**: You can also just open the "**C:\Program Files (x86)\Microsoft IoT\IoTCoreImageHelper.exe**" executable in Windows Explorer.
+
+	![02030-OpenImagHelper](images/02030-openimaghelper.png?raw=true "Open Windows IoT Core Image Helper")
+
+1. In the "Windows IoT Core Image Helper" window
+
+	- Select the drive letter associated with your SD card that we identified earlier. 
+	- Click the "**Browse**" button, and select the "**C:\Program Files (x86)\Microsoft IoT\FFU\RaspberryPi2\flash.ffu**" image file
+	- Click the "**Flash**" button to begin the flashing process
+
+	![02040-FlashTheSdCard](images/02040-flashthesdcard.png?raw=true "Flash the SD Card")
+
+1. When prompted, ensure that you have selected the correct SD card, then click "**Continue**" to confirm the erasure. 
+
+	![02050-ConfirmFormatting](images/02050-confirmformatting.png?raw=true "Confirm Formatting")
+
+1. During flashing, and console window will open showing the progress of the DISM utility as it flashes the image to your SD Card.
+
+	> **Note:** You will likely receive a "**User Account Control**" confirmation dialog.  Confirm by clicking "**Yes**".
+
+	![02060-DISMProgress](images/02060-dismprogress.png?raw=true "DISM Progress")
+
+1. Once the flashing process is complete, the SD card should now have the Windows 10 IoT Core Files on it
+
+	![02070-Windows10IoTCoreFiles](images/02070-windows10iotcorefiles.png?raw=true "Windows 10 IoT Core Files")
+
+1. You can now eject the SD card by right clicking on the drive letter associated with it, and selecting the "**Eject**" from the popup menu
+
+	![02080-EjectSDCard](images/02080-ejectsdcard.png?raw=true "Eject SD Card")
+
+1. Once windows notifies you that the card is safe to remove, you can remove the Micro SD card from your computer.  
+	
 ---
 
 <a name="Task3" />
-### Task 3: Finally Do This
+### Task 3: Setting up the Pi and Booting off Windows
 
-Finally, we'll do this
+We're now ready to hook up the Raspberry Pi, and boot off Windows 10 Iot Core.
 
-1. Step 1
-1. Step 2
-1. Step 3
+
+<span style="color: red;">**PLEASE READ**</span>:  This lab will use a hardwired Ethernet network connection for the Raspberry Pi rather than a WiFi connection.  Windows 10 IoT Core does support WiFi, but only on [a limited number of supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles).  At the time the hardware kits for the labs were assembled the only supported WiFi dongle was the "[Official Raspberry Pi WiFi Dongle](https://www.raspberrypi.org/products/usb-wifi-dongle/)" and they were in very short supply.  Since then the adapters are more readily available and there are additional WiFi adapters being supported. If you have one of the [supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles),  you can follow the steps on the "[Using WiFi on your Windows 10 IoT Core device](https://ms-iot.github.io/content/en-US/win10/SetupWiFi.htm)" to configure your Raspberry Pi's WiFi connection.
+
+For the following steps, we will use this hardware configuration:
+
+![03010-LabHardwareConfiguration](images/03010-LabHardwareConfiguration.png?raw=true "Lab Hardware Configuration")
+
+1. Insert the Micro SD Card we flashed above into the slot ***on the back*** of the Raspberry Pi 2.  Ensure that it is inserted completely.  You should hear a ***faint click*** when it is inserted completely.
+1. Next, connect the Keyboard, Mouse and HDMI monitor as identified in the diagram above.
+1. Plug the ends of the Ethernet Cable into the Raspberry Pi, and the Venue's hardwired Ethernet network.
+1. Lastly, connect the Micro USB cable to the Raspberry Pi 2's Power Port on one end and the full size USB cable to the 5V/2A Power Supply on the other end, and plug the Power Supply in to boot the Pi.
 
 
 
