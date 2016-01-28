@@ -138,13 +138,10 @@ This workshop has a number of Hands-On-Labs for you to walk through.  The overal
 #### Table with Markdown links and no thead or tbody
 
 <table class="table">
-  <thead>
     <tr>
       <th>Lab</th>
       <th>Description</th>
     </tr>
-  </thead>
-  <tbody>
     <tr>
       <td>1</td>
       <td>[Installing Windows 10 IoT Core](HOLs/01-InstallingWindows10IotCore/)</td>
@@ -161,5 +158,4 @@ This workshop has a number of Hands-On-Labs for you to walk through.  The overal
       <td>4</td>
       <td>Intro to Azure IoT Hubs(HOLs/04-IntroToAzureIoTHubs/)</td>
     </tr>
-  </tbody>
 </table>
