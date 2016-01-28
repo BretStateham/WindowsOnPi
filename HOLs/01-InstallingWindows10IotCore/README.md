@@ -25,6 +25,7 @@ There are no specific setup steps required prior to starting this lab other than
 - [Task 1: Install the Windows 10 IoT Core for Raspberry Pi 2 Tools on your PC](#Task1)
 - [Task 2: Flash the SD Card with Windows 10 IoT Core](#Task2)
 - [Task 3: Setting up the Pi and Booting off Windows](#Task3)
+- [Task 4: Setting the time on your Pi using SSH](#Task4)
 
 ---
 
@@ -137,6 +138,99 @@ For the following steps, we will use this hardware configuration:
 1. Next, connect the Keyboard, Mouse and HDMI monitor as identified in the diagram above.
 1. Plug the ends of the Ethernet Cable into the Raspberry Pi, and the Venue's hardwired Ethernet network.
 1. Lastly, connect the Micro USB cable to the Raspberry Pi 2's Power Port on one end and the full size USB cable to the 5V/2A Power Supply on the other end, and plug the Power Supply in to boot the Pi.
+1. Watch the screen as the pi boots.  Once it finally loads, a default app will run that displays information about your Pi, and allows you to configure some settings and shutdown or reboot the pi.  Pay attention to the details under the "Raspberry Pi 2" heading to see your Pi's name and IP address.  Make a note of your Pi's "**IP address**" so you can connect to it later.  
 
+	> **Note**: By default, every Pi is named "**minwinpc**", we will change that name in a minute, but each Pi on the network will have a unique "**IP address**".  Initially, we will use the unique "**IP address**" as a way to indentify our Pi on a network on which number of other Pi's with the same "**minwinpc**" name are connected.
 
+	![03020-PiDetails](images/03020-pidetails.png?raw=true "Pi Details")
 
+1. Take some time to explore the other features of the default app by clicking on the buttons along the top
+
+	- Tutorials
+	- Setup (the Gear Icon)
+	- Power Options (the Power Icon)
+
+1. Back on your PC, click the Windows button to open the Windows 10 Start Menu. Then type "**WindowsIoTCoreWatcher**" then click on the "WindowsIoTCoreWatcher" icon to launch the utility:
+
+	> **Note**: You may optionally want to right click on the app icon and select "**Pin to Start**" to make the app easier to find from your start menu in the future:
+
+	![03030-PinToStart](images/03030-pintostart.png?raw=true "Pin to Start")
+
+	![03040-OpenWindowsIoTCoreWatcher](images/03040-openwindowsiotcorewatcher.png?raw=true "Open Windows IoT Core Watcher")
+
+1. The "**Windows IoT Core Watcher**" app should start and list the various Raspberry Pi devices on the network that are running Windows 10 IoT Core. 
+
+	> **Note**: The "**Windows 10 IoT Core**" distribution we flashed to the Raspberry Pi's Micro SD card includes an executable called "**ebootpinger.exe**" that launches automatically.  The "**ebootpinger.exe**" program sends a UDP multicast packet every five seconds.  That packet includes details about the Pi including it's name, physical MAC address, IP Address, and OS version information.  The "**Windows IoT Core Watcher**" then listens for the multicast packets on it's network and displays the information it receives from the various Pis. 
+
+	![03050-WindowsIoTCoreWatcher](images/03050-windowsiotcorewatcher.png?raw=true "Windows IoT Core Watcher")
+
+1. Note that on a network with a number of Pi's with freshly flashed Micro SD cards, you can't differentiate them by their name.  Use the IP Address for your Pi you noted earlier to identify Your Pi in the list.  
+
+	![03060-FindYourPiByIp](images/03060-findyourpibyip.png?raw=true "Find Your Pi by its IP Address")
+
+1. You can then right-click on the line for your Raspberry Pi, and select "**Web Browser Here**" from the pop-up menu.  This will open up the "**[Windows Device Portal](https://ms-iot.github.io/content/en-US/win10/tools/DevicePortal.htm)**".  The "**Windows Device Portal**" is a built in web based management utility.  By default it listens on port "**8080**" and allows you to connect to your Pi via a browser to perform a wide range of configuration functions:
+
+	![03070-WebBrowserHere](images/03070-webbrowserhere.png?raw=true "Web Browser Here")
+
+1. When prompted, enter the default "Windows IoT Core" credentials:
+
+	- User name: **Administrator**
+	- Password:	**p@ssw0rd** (That's a zero, not the letter "o")
+
+![03080-DefaultCredentials](images/03080-defaultcredentials.png?raw=true "Default Credentials")
+
+1. When the "Windows Device Portal" web interface appears, take some time to click through the various pages on the left.  You should see that there is a fair amount you can do to manage your Raspberry Pi running Windows 10 IoT Core from the portal:
+
+	![03090-PortalPageLinks](images/03090-portalpagelinks.png?raw=true "Portal Page Links")
+
+1. Return to the "**Home**" page, and under the "**Change your device name**" header, enter a new name (instead of "**minwinpc**") for your Pi, then click the "**Save**" button. You need to use a valid windows computer name:
+
+	- Less than 15 characters long 
+	- No spaces
+	- No special characters (@, /, \, etc.)
+	- I recommend using your name or better yet your initials and the word pi, e.g. "**bretspi**", or "**bsspi**"
+
+	![03100-RenamePi](images/03100-renamepi.png?raw=true "Rename Pi")
+
+1. When prompted to reboot your Pi for the new name to take effect, click "**OK**"
+
+	![03110-RebootPi](images/03110-rebootpi.png?raw=true "Reboot Pi")
+
+1. Once your Pi has rebooted, you should see your new name both on the Pi's screen as well as in the "Windows IoT Core Watcher":
+
+	![03120-NewNameOnPi](images/03120-newnameonpi.png?raw=true "New Name On Pi")
+
+	![03130-NewNameInWatcher](images/03130-newnameinwatcher.png?raw=true "New Name in Windows IoT Core Watcher")
+
+---
+
+<a name="Task4" />
+### Task 4: Setting the time on your Pi using SSH
+
+For this task, we will use SSH to remotely connect to the command prompt on the Pi to set the time.  You could also use [Remote PowerShell](https://ms-iot.github.io/content/en-US/win10/samples/PowerShell.htm) for this, but for this lab [we will use SSH](http://ms-iot.github.io/content/en-US/win10/samples/SSH.htm).  This means that you will need an SSH client on your Windows computer (SSH isn't currently built-in in Windows).  For this lab, we recommend using [PuTTY](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe) but any ssh client will do.  You just need to know how to use it if you use anything other than PuTTY. 
+
+1. If necessary, [download and install the PuTTY SSH Client](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe)   
+
+1. Once installed, from the Windows "**Start Menu**", select "**All Apps**" | "**PuTTY**" | "**PuTTY**"
+
+	![04010-RunPutty](images/04010-runputty.png?raw=true "Run PuTTY")
+
+1. In the "**PuTTY Configuration**" window:
+
+	- Connection Type: **SSH**
+	- Host Name (or IP Address): **Your Raspberry Pi's IP Address**
+	- Port: **22**
+	- Click "**Open**"
+
+	![04020-PuTTYConfiguration](images/04020-puttyconfiguration.png?raw=true "PuTTY Configuration")
+
+1. You should receive a "**PuTTY Security Alert**" the first time you connect to your Pi over ssh.  Click "**Yes**" to add the Pi's SSH host key to your cache:
+
+	![04030-PuTTYSecurityAlert](images/04030-puttysecurityalert.png?raw=true "PuTTY Security Alert")
+
+1.  After a few seconds (it may take a while to connect) you will be prompted to login.  Use the default credentials (assuming you didn't change the password earlier) 
+
+	- Login:	**Administrator**
+	- Password: **p@ssw0rd** (That is a zero, not the letter "o")
+
+	 
