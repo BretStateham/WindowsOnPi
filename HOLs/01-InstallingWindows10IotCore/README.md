@@ -29,7 +29,7 @@ There are no specific setup steps required prior to starting this lab other than
 
 ---
 
-<a name="Task1" />
+<a name="Task1"></a>
 ### Task 1: Install the Windows 10 IoT Core for Raspberry Pi 2 Tools on Your PC
 
 To boot your Raspberry Pi 2 off of Windows 10 IoT Core we need to get the Windows 10 IoT Core operating system flashed on the Micro SD card used by the Raspberry Pi 2.  This requires that we first install some tools and the source image file on our computer. 
@@ -69,7 +69,7 @@ While specific steps will be outlined here, you can always find the latest Windo
 
 ---
 
-<a name="Task2" />
+<a name="Task2"></a>
 ### Task 2: Flash the SD Card with Windows 10 IoT Core
 
 In this task, we'll use the utilities and image we installed in the previous task to flash the Micro SD card with Windows 10 IoT Core.  
@@ -122,7 +122,7 @@ In this task, we'll use the utilities and image we installed in the previous tas
 	
 ---
 
-<a name="Task3" />
+<a name="Task3"></a>
 ### Task 3: Setting up the Pi and Booting off Windows
 
 We're now ready to hook up the Raspberry Pi, and boot off Windows 10 Iot Core.
@@ -204,7 +204,7 @@ For the following steps, we will use this hardware configuration:
 
 ---
 
-<a name="Task4" />
+<a name="Task4"></a>
 ### Task 4: Setting the time on your Pi using SSH
 
 Later, when we push data to Azure, we need the time on the Pi to be correct.  It ***SHOULD*** synchronize periodically with Windows Time Servers, but on some networks it may have a hard time doing so.  You can see if your Pi has the correct time by looking at the time displayed on the top of the Pi's monitor:
