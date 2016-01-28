@@ -79,8 +79,8 @@ This workshop has a number of Hands-On-Labs for you to walk through.  The overal
 
 | **Lab** | **Description**                   |
 |:-------:|----------------------------------:|
-|    1    | [Installing Windows 10 IoT Core](./HOLs/01-InstallingWindows10IotCore/Readme.htm)    |
-|    2    | [Blinking the LED with UWP]((./HOLs/02-BlinkingTheLEDWithUWP/Readme.htm))         |
-|    3    | [Working with Analog Sensors]((./HOLs/03-WorkingWithAnalogSensors/Readme.htm))       |
-|    4    | [Intro to Azure IoT Hubs]((./HOLs/04-IntroToAzureIoTHubs/Readme.htm))           |
+|    1    | [Installing Windows 10 IoT Core](./HOLs/01-InstallingWindows10IotCore/Readme.htm) |
+|    2    | [Blinking the LED with UWP](./HOLs/02-BlinkingTheLEDWithUWP/Readme.htm) |
+|    3    | [Working with Analog Sensors](./HOLs/03-WorkingWithAnalogSensors/Readme.htm) |
+|    4    | [Intro to Azure IoT Hubs](./HOLs/04-IntroToAzureIoTHubs/Readme.htm) |
 
