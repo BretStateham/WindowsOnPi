@@ -207,6 +207,12 @@ For the following steps, we will use this hardware configuration:
 <a name="Task4" />
 ### Task 4: Setting the time on your Pi using SSH
 
+Later, when we push data to Azure, we need the time on the Pi to be correct.  It ***SHOULD*** synchronize periodically with Windows Time Servers, but on some networks it may have a hard time doing so.  You can see if your Pi has the correct time by looking at the time displayed on the top of the Pi's monitor:
+
+![04005-TimeOnPi](images/04005-timeonpi.png?raw=true "TimeOnPi")
+
+If that time does not match the current time, we need to fix it.  Event if your time is correct, you should complete the steps in this task.  They will teach you how to connect to your Pi via SSH.  
+
 For this task, we will use SSH to remotely connect to the command prompt on the Pi to set the time.  You could also use [Remote PowerShell](https://ms-iot.github.io/content/en-US/win10/samples/PowerShell.htm) for this, but for this lab [we will use SSH](http://ms-iot.github.io/content/en-US/win10/samples/SSH.htm).  This means that you will need an SSH client on your Windows computer (SSH isn't currently built-in in Windows).  For this lab, we recommend using [PuTTY](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe) but any ssh client will do.  You just need to know how to use it if you use anything other than PuTTY. 
 
 1. If necessary, [download and install the PuTTY SSH Client](http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.66-installer.exe)   
@@ -233,4 +239,60 @@ For this task, we will use SSH to remotely connect to the command prompt on the 
 	- Login:	**Administrator**
 	- Password: **p@ssw0rd** (That is a zero, not the letter "o")
 
-	 
+	![04040-SSHLogin](images/04040-sshlogin.png?raw=true "SSH Login")
+
+1. The date and time and time zone on the Pi must be correct for the security tokens used to publish to Azure later in the lab to be valid.  To check the current time zone setting on the Pi, type:
+
+	`tzutil /g`
+
+	![04050-TzutilG](images/04050-tzutilg.png?raw=true "TZUTIL G")
+
+1. If the time zone reported is not correct, you can find a list of valid time zones using (you may need to increase the buffer size on your powershell window):
+
+	`tzutil /l`
+
+	![04060-TzUtilL](images/04060-tzutill.png?raw=true "TZUTIL L")
+
+1. To set the time zone, locate the id of the time zone you want from the step above, then use:
+
+	`tzutil /s "Your TimeZone Name"
+
+	For example, for "Pacific Standard Time"
+
+	`tzutil /s "Pacific Standard Time"
+
+	![04070-TzUtilS](images/04070-tzutils.png?raw=true "TZUTIL S")
+
+1. To check the date on the Raspberry Pi, type
+
+	`date /T`
+
+	![04080-GetDate](images/04080-getdate.png?raw=true "GetDate")
+
+1. If the date is incorrect, you can enter a new date when prompted, or if the date is correct simply press `ENTER` to accept the current date:
+
+	`date mm-dd-yy`
+
+	For Example, if it was January 3rd, 2016:
+
+	`date 01-03-16`
+
+	![04090-SetDate](images/04090-setdate.png?raw=true "Set Date")
+
+1. To check the Time on the pi, type:
+
+	`time /T`
+
+	![04100-GetTime](images/04100-gettime.png?raw=true "Get Time")
+
+1. If the time is incorrect, you can enter a new time 
+
+	`time hh:mm ampm`
+
+	For example, if it is 12:15 pm:
+
+	`time 12:15 pm`
+
+	![04110-SetTime](images/04110-settime.png?raw=true "Set Time")
+
+1. You can run most any standard Windows command prompt command from the SSH window.  You can check the online documentation for a list of [common command line utilities](http://ms-iot.github.io/content/en-US/win10/tools/CommandLineUtils.htm)
