@@ -77,31 +77,39 @@ There are some additional components that you will need to be successful:
 
 This workshop has a number of Hands-On-Labs for you to walk through.  The overall workflow has been broken into a series of individual labs, but they are intended to be completed in order. 
 
-#### Table with Markdown links
-
-  <table class="table">
-  <thead>
-  <tr>
-  <th>Lab</th>
-  <th>Description</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td>1</td>
-  <td>[Installing Windows 10 IoT Core](HOLs/01-InstallingWindows10IotCore/) </td>
-  </tr>
-  <tr>
-  <td>2</td>
-  <td>[Blinking the LED with UWP](HOLs/02-BlinkingTheLEDWithUWP/) </td>
-  </tr>
-  <tr>
-  <td>3</td>
-  <td>[Working with Analog Sensors](HOLs/03-WorkingWithAnalogSensors/) </td>
-  </tr>
-  <tr>
-  <td>4</td>
-  <td>[Intro to Azure IoT Hubs](HOLs/04-IntroToAzureIoTHubs/) </td>
-  </tr>
-  </tbody>
-  </table>
+<div class="container">
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Workshop Hands-On-Labs</h3>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Lab</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>[Installing Windows 10 IoT Core](HOLs/01-InstallingWindows10IotCore/) </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>[Blinking the LED with UWP](HOLs/02-BlinkingTheLEDWithUWP/) </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>[Working with Analog Sensors](HOLs/03-WorkingWithAnalogSensors/) </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>[Intro to Azure IoT Hubs](HOLs/04-IntroToAzureIoTHubs/) </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  </div>
+  
