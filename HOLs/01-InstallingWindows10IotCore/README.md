@@ -1,13 +1,4 @@
-<html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>HOL 01 - Installing Windows 10 IoT Core</title>
-	  <link rel="stylesheet" href="style.css">
-   </head>
-   <body id="home">
-      <div class="container">
+  <div class="container">
 
 # HOL 01 - Installing Windows 10 IoT Core
 
@@ -310,6 +301,4 @@ For this task, we will use SSH to remotely connect to the command prompt on the 
 
 1. You can run most any standard Windows command prompt command from the SSH window.  You can check the online documentation for a list of <a href="http://ms-iot.github.io/content/en-US/win10/tools/CommandLineUtils.htm" target="_blank">common command line utilities</a>
 
-    </div>
-  </body>
-</html>
+  </div>
