@@ -1,5 +1,3 @@
-  <div class="panel panel-default">
-
 # HOL 01 - Installing Windows 10 IoT Core
 
 ## Overview
@@ -300,5 +298,3 @@ For this task, we will use SSH to remotely connect to the command prompt on the 
 	![04110-SetTime](images/04110-settime.png?raw=true "Set Time")
 
 1. You can run most any standard Windows command prompt command from the SSH window.  You can check the online documentation for a list of <a href="http://ms-iot.github.io/content/en-US/win10/tools/CommandLineUtils.htm" target="_blank">common command line utilities</a>
-
-  </div>
