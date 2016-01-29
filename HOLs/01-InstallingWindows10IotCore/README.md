@@ -11,7 +11,6 @@ In this lab you will setup the Raspberry Pi, Install Windows 10 IoT Core on it, 
 - A 5V/2A Power Supply with a Micro USB Connector
 - An 8GB or larger Micro SD Card
 - A Micro SD Card Reader for your computer
-- An Ethernet Port on your computer (A USB Ethernet Dongle is fine)
 - An Ethernet Cable
 - An HDMI Monitor for the Raspberry Pi
 - A USB Keyboard and Mouse for the Raspberry Pi 
@@ -34,9 +33,9 @@ There are no specific setup steps required prior to starting this lab other than
 
 To boot your Raspberry Pi 2 off of Windows 10 IoT Core we need to get the Windows 10 IoT Core operating system flashed on the Micro SD card used by the Raspberry Pi 2.  This requires that we first install some tools and the source image file on our computer. 
 
-While specific steps will be outlined here, you can always find the latest Windows 10 IoT Core installation Instructions here: <a href="http://ms-iot.github.io/content/en-US/GetStarted.htm"  target="_blank">http://ms-iot.github.io/content/en-US/GetStarted.htm</a>
+The specific steps to follow will be outlined below, you can always find the latest Windows 10 IoT Core installation Instructions here: <a href="http://ms-iot.github.io/content/en-US/GetStarted.htm"  target="_blank">http://ms-iot.github.io/content/en-US/GetStarted.htm</a>
 
-1. Download the <a href="http://ms-iot.github.io/content/en-US/Downloads.htm" target="_blank">Windows 10 IoT Core for Raspberry Pi 2 ISO</a> (<a href="http://go.microsoft.com/fwlink/?LinkId=691711" target="_blank">Direct Download Link</a>)
+1. To start, download the <a href="http://ms-iot.github.io/content/en-US/Downloads.htm" target="_blank">Windows 10 IoT Core for Raspberry Pi 2 ISO</a> (<a href="http://go.microsoft.com/fwlink/?LinkId=691711" target="_blank">Direct Download Link</a>)
 
 	> **Note:** If you are at an in-person workshop, the required download files may have been provided on a USB drive or via some alternative source.  Please refer to the event specific locations if they exist.  The ISO file download is appx. 500MB in size and can cause issues when downloading over the event WiFi simultaneously with other event attendees. 
 
@@ -60,7 +59,7 @@ While specific steps will be outlined here, you can always find the latest Windo
 
 1. Finally, the Windows 10 Iot Core tools and image should now be on your computer under the "**C:\Program Files (x86)\Microsoft IoT**" directory.
 
-	- The "**DISM**" folder contains the "**Deployment Image Servicing and Management*"" utility that is used to apply the image to the Micro SD card. 
+	- The "**DISM**" folder contains the "**Deployment Image Servicing and Management**"" utility that is used to apply the image to the Micro SD card. 
 	- The "**FFU\RaspberryPi2**" folder contains the "**flash.ffu**" ("**Full Flash Update**") image file for Windows 10 IoT Core for the Raspberry Pi 2.  This is the actual image that will be flashed to the Micro SD Card. 
 	- The "**IoTCoreImageHelper.exe**" utility is used to simplify the use of "**DISM**" to flash the "**flash.ffu**" file to the Micro SD Card. 
 	- The "**WindowsIoTCoreWatcher.exe**" utility is used to identify Raspberry Pi 2 devices running Windows 10 IoT Core on your network and provide a simplified means to manage them. 
@@ -86,13 +85,13 @@ In this task, we'll use the utilities and image we installed in the previous tas
 
 	![02020-SDCardDriveLetter](images/02020-sdcarddriveletter.png?raw=true "SD Card Drive Letter")
 
-1. Then press the Windows Key on your computer to open the Windows Start Menu, then type "WindowsIoTImageHelper" to search for the imaging utility we installed previously
+1. Then press the Windows button on your computer to open the Windows "**Start Menu**", then type "**WindowsIoTImageHelper**" to search for the imaging utility we installed previously
 
 	> **Note**: You can also just open the "**C:\Program Files (x86)\Microsoft IoT\IoTCoreImageHelper.exe**" executable in Windows Explorer.
 
 	![02030-OpenImagHelper](images/02030-openimaghelper.png?raw=true "Open Windows IoT Core Image Helper")
 
-1. In the "Windows IoT Core Image Helper" window
+1. In the "**Windows IoT Core Image Helper**" window
 
 	- Select the drive letter associated with your SD card that we identified earlier. 
 	- Click the "**Browse**" button, and select the "**C:\Program Files (x86)\Microsoft IoT\FFU\RaspberryPi2\flash.ffu**" image file
@@ -104,9 +103,10 @@ In this task, we'll use the utilities and image we installed in the previous tas
 
 	![02050-ConfirmFormatting](images/02050-confirmformatting.png?raw=true "Confirm Formatting")
 
-1. During flashing, and console window will open showing the progress of the DISM utility as it flashes the image to your SD Card.
+1. 	You will likely receive a "**User Account Control**" confirmation dialog.  Confirm by clicking "**Yes**".
 
-	> **Note:** You will likely receive a "**User Account Control**" confirmation dialog.  Confirm by clicking "**Yes**".
+
+1. During flashing, and console window will open showing the progress of the DISM utility as it flashes the image to your SD Card.
 
 	![02060-DISMProgress](images/02060-dismprogress.png?raw=true "DISM Progress")
 
@@ -128,16 +128,16 @@ In this task, we'll use the utilities and image we installed in the previous tas
 We're now ready to hook up the Raspberry Pi, and boot off Windows 10 Iot Core.
 
 
-<span style="color: red;">**PLEASE READ**</span>:  This lab will use a hardwired Ethernet network connection for the Raspberry Pi rather than a WiFi connection.  Windows 10 IoT Core does support WiFi, but only on [a limited number of supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles).  At the time the hardware kits for the labs were assembled the only supported WiFi dongle was the "[Official Raspberry Pi WiFi Dongle](https://www.raspberrypi.org/products/usb-wifi-dongle/)" and they were in very short supply.  Since then the adapters are more readily available and there are additional WiFi adapters being supported. If you have one of the [supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles),  you can follow the steps on the "[Using WiFi on your Windows 10 IoT Core device](https://ms-iot.github.io/content/en-US/win10/SetupWiFi.htm)" to configure your Raspberry Pi's WiFi connection.
+<span style="color: red;">**PLEASE READ**</span>:  This lab will use a hardwired Ethernet network connection for the Raspberry Pi rather than a WiFi connection.  Windows 10 IoT Core does support WiFi, but only on [a limited number of supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles).  At the time the hardware kits for the labs were assembled the only supported WiFi dongle was the "[Official Raspberry Pi WiFi Dongle](https://www.raspberrypi.org/products/usb-wifi-dongle/)" and they were in very short supply, so the kits were shipped with Ethernet cables instead.  Since then the adapters are more readily available and there are additional WiFi adapters being supported. If you have one of the [supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles),  you can follow the steps on the "[Using WiFi on your Windows 10 IoT Core device](https://ms-iot.github.io/content/en-US/win10/SetupWiFi.htm)" to configure your Raspberry Pi's WiFi connection.
 
 For the following steps, we will use this hardware configuration:
 
 ![03010-LabHardwareConfiguration](images/03010-LabHardwareConfiguration.png?raw=true "Lab Hardware Configuration")
 
 1. Insert the Micro SD Card we flashed above into the slot ***on the back*** of the Raspberry Pi 2.  Ensure that it is inserted completely.  You should hear a ***faint click*** when it is inserted completely.
-1. Next, connect the Keyboard, Mouse and HDMI monitor as identified in the diagram above.
-1. Plug the ends of the Ethernet Cable into the Raspberry Pi, and the Venue's hardwired Ethernet network.
-1. Lastly, connect the Micro USB cable to the Raspberry Pi 2's Power Port on one end and the full size USB cable to the 5V/2A Power Supply on the other end, and plug the Power Supply in to boot the Pi.
+1. Next, connect the **Keyboard**, **Mouse** and **HDMI Monitor** as identified in the diagram above.
+1. Plug the ends of the **Ethernet Cable** into the Raspberry Pi, and the Venue's hardwired Ethernet network.
+1. Lastly, connect the **Micro USB cable** to the Raspberry Pi 2's Power Port on one end and the full size USB cable to the **5V/2A Power Supply** on the other end, and plug the Power Supply in to boot the Pi.
 1. Watch the screen as the pi boots.  Once it finally loads, a default app will run that displays information about your Pi, and allows you to configure some settings and shutdown or reboot the pi.  Pay attention to the details under the "Raspberry Pi 2" heading to see your Pi's name and IP address.  Make a note of your Pi's "**IP address**" so you can connect to it later.  
 
 	> **Note**: By default, every Pi is named "**minwinpc**", we will change that name in a minute, but each Pi on the network will have a unique "**IP address**".  Initially, we will use the unique "**IP address**" as a way to indentify our Pi on a network on which number of other Pi's with the same "**minwinpc**" name are connected.
@@ -150,7 +150,8 @@ For the following steps, we will use this hardware configuration:
 	- Setup (the Gear Icon)
 	- Power Options (the Power Icon)
 
-1. Back on your PC, click the Windows button to open the Windows 10 Start Menu. Then type "**WindowsIoTCoreWatcher**" then click on the "WindowsIoTCoreWatcher" icon to launch the utility:
+
+1. Back on your PC, click the Windows button to open the Windows 10 Start Menu. Then type "**WindowsIoTCoreWatcher**" then click on the "**WindowsIoTCoreWatcher**" icon to launch the utility:
 
 	> **Note**: You may optionally want to right click on the app icon and select "**Pin to Start**" to make the app easier to find from your start menu in the future:
 
@@ -168,7 +169,7 @@ For the following steps, we will use this hardware configuration:
 
 	![03060-FindYourPiByIp](images/03060-findyourpibyip.png?raw=true "Find Your Pi by its IP Address")
 
-1. You can then right-click on the line for your Raspberry Pi, and select "**Web Browser Here**" from the pop-up menu.  This will open up the "**[Windows Device Portal](https://ms-iot.github.io/content/en-US/win10/tools/DevicePortal.htm)**".  The "**Windows Device Portal**" is a built in web based management utility.  By default it listens on port "**8080**" and allows you to connect to your Pi via a browser to perform a wide range of configuration functions:
+1. You can then right-click on the line for your Raspberry Pi, and select "**Web Browser Here**" from the pop-up menu.  This will open up the "**<a href="https://ms-iot.github.io/content/en-US/win10/tools/DevicePortal.htm" target="_blank">Windows Device Portal</a>**".  The "**Windows Device Portal**" is a built in web based management utility.  By default it listens on port "**8080**" and allows you to connect to your Pi via a browser to perform a wide range of configuration functions:
 
 	![03070-WebBrowserHere](images/03070-webbrowserhere.png?raw=true "Web Browser Here")
 
@@ -179,7 +180,7 @@ For the following steps, we will use this hardware configuration:
 
 ![03080-DefaultCredentials](images/03080-defaultcredentials.png?raw=true "Default Credentials")
 
-1. When the "Windows Device Portal" web interface appears, take some time to click through the various pages on the left.  You should see that there is a fair amount you can do to manage your Raspberry Pi running Windows 10 IoT Core from the portal:
+1. When the "https://ms-iot.github.io/content/en-US/win10/tools/DevicePortal.htm" web interface appears, take some time to click through the various pages on the left.  You should see that there is a fair amount you can do to manage your Raspberry Pi running Windows 10 IoT Core from the portal:
 
 	![03090-PortalPageLinks](images/03090-portalpagelinks.png?raw=true "Portal Page Links")
 
@@ -196,7 +197,7 @@ For the following steps, we will use this hardware configuration:
 
 	![03110-RebootPi](images/03110-rebootpi.png?raw=true "Reboot Pi")
 
-1. Once your Pi has rebooted, you should see your new name both on the Pi's screen as well as in the "Windows IoT Core Watcher":
+1. Once your Pi has rebooted, you should see your new name both on the Pi's screen as well as in the "**Windows IoT Core Watcher**":
 
 	![03120-NewNameOnPi](images/03120-newnameonpi.png?raw=true "New Name On Pi")
 
