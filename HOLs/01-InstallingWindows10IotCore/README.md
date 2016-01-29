@@ -1,4 +1,4 @@
-# HOL 01 - Installing Windows 10 IoT Core
+﻿# HOL 01 - Installing Windows 10 IoT Core
 
 ## Overview
 
@@ -106,7 +106,7 @@ In this task, we'll use the utilities and image we installed in the previous tas
 1. 	You will likely receive a "**User Account Control**" confirmation dialog.  Confirm by clicking "**Yes**".
 
 
-1. During flashing, and console window will open showing the progress of the DISM utility as it flashes the image to your SD Card.
+1. During flashing, a console window will open showing the progress of the DISM utility as it flashes the image to your SD Card.
 
 	![02060-DISMProgress](images/02060-dismprogress.png?raw=true "DISM Progress")
 
@@ -128,7 +128,7 @@ In this task, we'll use the utilities and image we installed in the previous tas
 We're now ready to hook up the Raspberry Pi, and boot off Windows 10 Iot Core.
 
 
-<span style="color: red;">**PLEASE READ**</span>:  This lab will use a hardwired Ethernet network connection for the Raspberry Pi rather than a WiFi connection.  Windows 10 IoT Core does support WiFi, but only on [a limited number of supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles).  At the time the hardware kits for the labs were assembled the only supported WiFi dongle was the "[Official Raspberry Pi WiFi Dongle](https://www.raspberrypi.org/products/usb-wifi-dongle/)" and they were in very short supply, so the kits were shipped with Ethernet cables instead.  Since then the adapters are more readily available and there are additional WiFi adapters being supported. If you have one of the [supported WiFi dongles](https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles),  you can follow the steps on the "[Using WiFi on your Windows 10 IoT Core device](https://ms-iot.github.io/content/en-US/win10/SetupWiFi.htm)" to configure your Raspberry Pi's WiFi connection.
+<span style="color: red;">**PLEASE READ**</span>:  This lab will use a hardwired Ethernet network connection for the Raspberry Pi rather than a WiFi connection.  Windows 10 IoT Core does support WiFi, but only on <a href="https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles" target="_blank">a limited number of supported WiFi dongles</a>.  At the time the hardware kits for the labs were assembled the only supported WiFi dongle was the "<a href="https://www.raspberrypi.org/products/usb-wifi-dongle/" target="_blank">Official Raspberry Pi WiFi Dongle</a>" and they were in very short supply, so the kits were shipped with Ethernet cables instead.  Since then the adapters are more readily available and there are additional WiFi adapters being supported. If you have one of the <a href="https://ms-iot.github.io/content/en-US/win10/SupportedInterfaces.htm#WiFi-Dongles" target="_blank">supported WiFi dongles</a>,  you can follow the steps on the "<a href="https://ms-iot.github.io/content/en-US/win10/SetupWiFi.htm" target="_blank">Using WiFi on your Windows 10 IoT Core device</a>" to configure your Raspberry Pi's WiFi connection.
 
 For the following steps, we will use this hardware configuration:
 
