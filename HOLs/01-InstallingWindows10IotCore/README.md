@@ -240,6 +240,7 @@ For this task, we will use SSH to remotely connect to the command prompt on the 
 	- Login:	**Administrator**
 	- Password: **p@ssw0rd** (That is a zero, not the letter "o")
 
+
 	![04040-SSHLogin](images/04040-sshlogin.png?raw=true "SSH Login")
 
 1. The date and time and time zone on the Pi must be correct for the security tokens used to publish to Azure later in the lab to be valid.  To check the current time zone setting on the Pi, type:
@@ -248,7 +249,7 @@ For this task, we will use SSH to remotely connect to the command prompt on the 
 
 	![04050-TzutilG](images/04050-tzutilg.png?raw=true "TZUTIL G")
 
-1. If the time zone reported is not correct, you can find a list of valid time zones using (you may need to increase the buffer size on your powershell window):
+1. If the time zone reported is not correct, you can find a list of valid time zones using:
 
 	`tzutil /l`
 
@@ -256,11 +257,11 @@ For this task, we will use SSH to remotely connect to the command prompt on the 
 
 1. To set the time zone, locate the id of the time zone you want from the step above, then use:
 
-	`tzutil /s "Your TimeZone Name"
+	`tzutil /s "Your TimeZone Name"`
 
 	For example, for "Pacific Standard Time"
 
-	`tzutil /s "Pacific Standard Time"
+	`tzutil /s "Pacific Standard Time"`
 
 	![04070-TzUtilS](images/04070-tzutils.png?raw=true "TZUTIL S")
 
