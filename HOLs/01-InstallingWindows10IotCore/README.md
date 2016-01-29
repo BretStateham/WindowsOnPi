@@ -1,4 +1,4 @@
-  <div class="container">
+  <div class="panel panel-default">
 
 # HOL 01 - Installing Windows 10 IoT Core
 
