@@ -2,24 +2,41 @@
 
 ## Overview
 
+In this lab, we will start with a relatively simple Universal Windows Platform (UWP) app, and run it on the Pi.  If you want a sample that is even simpler than what we do here, check out the <a href="http://ms-iot.github.io/content/en-US/win10/samples/Blinky.htm" target="_blank">Blinky Sample</a> from the <a href="http://ms-iot.github.io/content/en-US/win10/StartCoding.htm" target="_blank">Windows on Devices Docs, Tutorials and Samples</a>
+
 ## Pre-Requisites
+
+To complete this lab you must have completed the steps in lab [01 - Installing Windows 10 IoT Core](../HOLs/01-InstallingWindows10IotCore/) 
+
+In addition to the pre-reqs from the [prevoius lab](../HOLs/01-InstallingWindows10IotCore/), you will need:
+
+- Visual Studio 2015 with Update 1 with the following features:
+	- "Microsoft Web Developer Tools"
+	- "Universal Windows App Development Tools"
+- A Solderless Breadboard
+- A 5mm LED
+- A 330&#0937; Resistor
+- A SPST Momentary Pushbutton
+- Multiple Male/Female and Male/Male jumper wires.
 
 ## Setup
 
-Before you start the lab, complete the following setup steps to prepare your environment.
+Ensure that you have completed the pre-requisites above. 
 
 ## Tasks
 
-- [Task 1: First Do This](#Task1)
-- [Task 2: Then Do This](#Task2)
+- [Task 1: Complete the LED and Pushbutton Circuit](#Task1)
+- [Task 2: Create the UWP](#Task2)
 - [Task 3: Finally Do This](#Task3)
 
 ---
 
 <a name="Task1"></a>
-### Task 1: First Do This
+### Task 1: Complete the LED and Pushbutton Circuit
 
-First, we'll do this
+In this task you will use the various components to complete the circuit show in the following diagram:
+
+![01010-LedAndPushbuttonCircuit](images/01010-ledandpushbuttoncircuit.png?raw=true "LED and Pushbutton Circuit") 
 
 1. Step 1
 1. Step 2
