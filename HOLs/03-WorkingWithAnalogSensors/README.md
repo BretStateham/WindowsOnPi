@@ -247,129 +247,129 @@ Ensure that you have completed the pre-requisites above.
 
 	- Finally the `LightLED()` method compares the adcLightSensorValue to the maximum value of the given ADCs resolution. If the adcLightSensor value is over half of the ADC resolution, it toggles the `<ToggleButton x:name="TogglePinButton">` state which in turn updates the UI and sets the LED.   
 
-	````C#
-	/// <summary>
-	/// Called by the adcTimer.  Reads the light sensor value and 
-	/// toggles the button control and LED based on the value.
-	/// </summary>
-	/// <param name="sender"></param>
-	/// <param name="e"></param>
-	private void AdcTimer_Tick(object sender, object e)
-	{
-	  //Read the latest value from the light sensor
-	  ReadLightSensor();
-			
-	  //Toggle the button control and LED based on the Light Sensor Value.
-	  //If the ToggleLedWhenDark checkbox is turned on. 
-	  if (ToggleLedWhenDark.IsChecked == true)
-	  {
-		 LightLED();
-	  }
-	}
+		````C#
+		/// <summary>
+		/// Called by the adcTimer.  Reads the light sensor value and 
+		/// toggles the button control and LED based on the value.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void AdcTimer_Tick(object sender, object e)
+		{
+		  //Read the latest value from the light sensor
+		  ReadLightSensor();
+				
+		  //Toggle the button control and LED based on the Light Sensor Value.
+		  //If the ToggleLedWhenDark checkbox is turned on. 
+		  if (ToggleLedWhenDark.IsChecked == true)
+		  {
+			 LightLED();
+		  }
+		}
 
-	/// <summary>
-	/// Reads data from the light sensor via the ADC
-	/// </summary>
-	public void ReadLightSensor()
-	{
-	  byte[] readBuffer = new byte[3]; /* Buffer to hold read data*/
-	  byte[] writeBuffer = new byte[3] { 0x00, 0x00, 0x00 };
+		/// <summary>
+		/// Reads data from the light sensor via the ADC
+		/// </summary>
+		public void ReadLightSensor()
+		{
+		  byte[] readBuffer = new byte[3]; /* Buffer to hold read data*/
+		  byte[] writeBuffer = new byte[3] { 0x00, 0x00, 0x00 };
 
-	  /* Setup the appropriate ADC configuration byte */
-	  switch (ADC_CHIP)
-	  {
-		 case AdcChip.MCP3002:
-			writeBuffer[0] = MCP3002_CONFIG;
-			break;
-		 case AdcChip.MCP3208:
-			writeBuffer[0] = MCP3208_CONFIG;
-			break;
-		 case AdcChip.MCP3008:
-			writeBuffer[0] = MCP3008_CONFIG[0];
-			writeBuffer[1] = MCP3008_CONFIG[1];
-			break;
-	  }
+		  /* Setup the appropriate ADC configuration byte */
+		  switch (ADC_CHIP)
+		  {
+			 case AdcChip.MCP3002:
+				writeBuffer[0] = MCP3002_CONFIG;
+				break;
+			 case AdcChip.MCP3208:
+				writeBuffer[0] = MCP3208_CONFIG;
+				break;
+			 case AdcChip.MCP3008:
+				writeBuffer[0] = MCP3008_CONFIG[0];
+				writeBuffer[1] = MCP3008_CONFIG[1];
+				break;
+		  }
 
-	  //Read data from the ADC
-	  SpiADC.TransferFullDuplex(writeBuffer, readBuffer);
+		  //Read data from the ADC
+		  SpiADC.TransferFullDuplex(writeBuffer, readBuffer);
 
-	  //Convert the returned bytes into an integer value
-	  adcLightSensorValue = convertToInt(readBuffer);
+		  //Convert the returned bytes into an integer value
+		  adcLightSensorValue = convertToInt(readBuffer);
 
-	  // UI updates must be invoked on the UI thread 
-	  var task = this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-	  {
-		 //Display the light sensor value in the UI via the LightSensorValueText control
-		 LightSensorValueText.Text = adcLightSensorValue.ToString();
-	  });
+		  // UI updates must be invoked on the UI thread 
+		  var task = this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+		  {
+			 //Display the light sensor value in the UI via the LightSensorValueText control
+			 LightSensorValueText.Text = adcLightSensorValue.ToString();
+		  });
 
-	}
+		}
 
-	/// <summary>
-	/// Used to convert raw ADC bytes for the current ADC_CHIP type to an int.
-	/// Refer to your ADCs data sheet for more information
-	/// </summary>
-	/// <param name="data">The raw ADC data to convert</param>
-	/// <returns>The converted bytes as an int</returns>
-	public int convertToInt(byte[] data)
-	{
-	  int result = 0;
-	  switch (ADC_CHIP)
-	  {
-		 case AdcChip.MCP3002:
-			result = data[0] & 0x03;
-			result <<= 8;
-			result += data[1];
-			break;
-		 case AdcChip.MCP3208:
-			result = data[1] & 0x0F;
-			result <<= 8;
-			result += data[2];
-			break;
-		 case AdcChip.MCP3008:
-			result = data[1] & 0x03;
-			result <<= 8;
-			result += data[2];
-			break;
-	  }
-	  return result;
-	}
+		/// <summary>
+		/// Used to convert raw ADC bytes for the current ADC_CHIP type to an int.
+		/// Refer to your ADCs data sheet for more information
+		/// </summary>
+		/// <param name="data">The raw ADC data to convert</param>
+		/// <returns>The converted bytes as an int</returns>
+		public int convertToInt(byte[] data)
+		{
+		  int result = 0;
+		  switch (ADC_CHIP)
+		  {
+			 case AdcChip.MCP3002:
+				result = data[0] & 0x03;
+				result <<= 8;
+				result += data[1];
+				break;
+			 case AdcChip.MCP3208:
+				result = data[1] & 0x0F;
+				result <<= 8;
+				result += data[2];
+				break;
+			 case AdcChip.MCP3008:
+				result = data[1] & 0x03;
+				result <<= 8;
+				result += data[2];
+				break;
+		  }
+		  return result;
+		}
 
-	/// <summary>
-	/// Updates the UI and LED state based on the current adcLightSensorValue 
-	/// </summary>
-	private void LightLED()
-	{
-	  int adcResolution = 0;
+		/// <summary>
+		/// Updates the UI and LED state based on the current adcLightSensorValue 
+		/// </summary>
+		private void LightLED()
+		{
+		  int adcResolution = 0;
 
-	  // The resolution of the ADC depends on it's type. 
-	  // This basically specifies the maximum range of values
-	  // read from the chip.  0 < value < adcResolution
-	  switch (ADC_CHIP)
-	  {
-		 case AdcChip.MCP3002:
-			adcResolution = 1024;
-			break;
-		 case AdcChip.MCP3208:
-			adcResolution = 4096;
-			break;
-		 case AdcChip.MCP3008:
-			adcResolution = 1024;
-			break;
-	  }
+		  // The resolution of the ADC depends on it's type. 
+		  // This basically specifies the maximum range of values
+		  // read from the chip.  0 < value < adcResolution
+		  switch (ADC_CHIP)
+		  {
+			 case AdcChip.MCP3002:
+				adcResolution = 1024;
+				break;
+			 case AdcChip.MCP3208:
+				adcResolution = 4096;
+				break;
+			 case AdcChip.MCP3008:
+				adcResolution = 1024;
+				break;
+		  }
 
-	  // Turn on LED if the analog value is over half of it's range
-	  if (adcLightSensorValue > (adcResolution / 2))
-	  {
-		 TogglePinButton.IsChecked = true;
-	  }
-	  // Otherwise turn it off
-	  else
-	  {
-		 TogglePinButton.IsChecked = false;
-	  }
-	}
-	````
+		  // Turn on LED if the analog value is over half of it's range
+		  if (adcLightSensorValue > (adcResolution / 2))
+		  {
+			 TogglePinButton.IsChecked = true;
+		  }
+		  // Otherwise turn it off
+		  else
+		  {
+			 TogglePinButton.IsChecked = false;
+		  }
+		}
+		````
 
 ---
 
