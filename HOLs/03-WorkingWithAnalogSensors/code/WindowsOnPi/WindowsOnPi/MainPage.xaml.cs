@@ -221,6 +221,8 @@ namespace WindowsOnPi
       });
     }
 
+    #endregion LED and Button Members
+
     #region ADC/SPI Members
 
     /// <summary>
