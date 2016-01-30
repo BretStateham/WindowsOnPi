@@ -26,7 +26,7 @@ Ensure that you have completed the pre-requisites above.
 ## Tasks
 
 - [Task 1: Complete the LED and Pushbutton Circuit](#Task1)
-- [Task 2: Create the UWP](#Task2)
+- [Task 2: Open and review the UWP Project](#Task2)
 - [Task 3: Finally Do This](#Task3)
 
 ---
@@ -38,11 +38,11 @@ In this task you will complete the circuit needed for our first app.
 
 1. <span style="color: red;">***REMOVE THE POWER AND HDMI CABLES FROM YOUR RASPBERRY PI 2***</span>.  This will ensure that you do not accidentally short-out anything on the board while you are completing the circuit. 
 
-1.  As a reference, you can identify the pins on the Raspberry Pi 2 using the following image (***you can right-click on the image below to open in a new browser window or tab***).
+1.  As a reference, you can identify the pins on the Raspberry Pi 2 using the following image.
 
 	![01020-RPi2Pinouts](images/01020-rpi2pinouts.png?raw=true "Raspberry Pi 2 Pinouts")
 
-1. Use the following diagram to complete the circuit. <span style="color: red;">***WE WILL BE ADDING ADDITIONAL COMPONENTS IN THE NEXT LAB, DO YOUR BEST TO LAYOUT THE BREADBOARD AS DIGRAMMED BELOW.  THIS WILL ENSURE THERE IS ROOM FOR THE ADDITIONAL COMPONENTS ADDED IN THE NEXT LAB***</span> (***you can right-click on the image below to open in a new browser window or tab***):
+1. Use the following diagram to complete the circuit. <span style="color: red;">***WE WILL BE ADDING ADDITIONAL COMPONENTS IN THE NEXT LAB, DO YOUR BEST TO LAYOUT THE BREADBOARD AS DIGRAMMED BELOW.  THIS WILL ENSURE THERE IS ROOM FOR THE ADDITIONAL COMPONENTS ADDED IN THE NEXT LAB***</span>:
 
 	![01010-LedAndPushbuttonCircuit](images/01010-ledandpushbuttoncircuit.png?raw=true "LED and Pushbutton Circuit") 
 
@@ -51,11 +51,13 @@ In this task you will complete the circuit needed for our first app.
 ---
 
 <a name="Task2"></a>
-### Task 2: Then Do This
+### Task 2: Open and review the UWP Project
 
-Then, we'll do this
+Next, we'll open an existing UWP application that is designed to interact with the LED and Pushbutton from the circuit above if it is being run on a device that has a General Purpose Input Output (GPIO) Controller, like the Raspberry Pi. 
 
-1. Step 1
+The cool thing about UWP apps though, is that we can write them in such a way as to allow them to continue to function, at least to some degree, even if the device they are running on does not support all of the hardware requirements of the app. 
+
+1. In the folder where you have exracted the files for these Hands-On-Labs, locate the `HOLs\02-BlinkingTheLEDWithUWP\code\WindowsOnPi` folder, and double click on the `WindowsOnPi.sln` solution file to open it in Visual Studio.
 1. Step 2
 1. Step 3
 

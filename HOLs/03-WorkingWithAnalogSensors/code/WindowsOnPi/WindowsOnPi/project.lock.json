@@ -3,14 +3,6 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
-      "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-        "compile": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -1546,14 +1538,6 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
-      "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-        "compile": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -3179,14 +3163,6 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
-      "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-        "compile": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -4784,14 +4760,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
-      "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-        "compile": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -6422,14 +6390,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
-      "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-        "compile": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -8027,14 +7987,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
-      "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-        "compile": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -9665,14 +9617,6 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
-      "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-        "compile": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        },
-        "runtime": {
-          "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd": {}
-        }
-      },
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Collections": "[4.0.10, )",
@@ -11271,19 +11215,6 @@
     }
   },
   "libraries": {
-    "Microsoft.Azure.Devices.Client/1.0.0-preview-010": {
-      "sha512": "VGegRCHlN/40UeQSCGZPhGpEbnpYahKGQ/i/mvmXC1AZLjC3ZVa99s47THGjmS2pmBEaMJY0Wi7mnLcLp4MAnQ==",
-      "type": "Package",
-      "files": [
-        "[Content_Types].xml",
-        "_rels/.rels",
-        "lib/net45/Microsoft.Azure.Devices.Client.dll",
-        "lib/uap10.0/Microsoft.Azure.Devices.Client.winmd",
-        "Microsoft.Azure.Devices.Client.nuspec",
-        "package/services/metadata/core-properties/a48ce9dabdf8477bb0b708c590db4dc2.psmdcp",
-        "thirdpartynotice.txt"
-      ]
-    },
     "Microsoft.CSharp/4.0.0": {
       "sha512": "oWqeKUxHXdK6dL2CFjgMcaBISbkk+AqEg+yvJHE4DElNzS4QaTsCflgkkqZwVlWby1Dg9zo9n+iCAMFefFdJ/A==",
       "type": "Package",
@@ -14635,7 +14566,6 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.Azure.Devices.Client >= 1.0.0-preview-010",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0"
     ],
     "UAP,Version=v10.0": []

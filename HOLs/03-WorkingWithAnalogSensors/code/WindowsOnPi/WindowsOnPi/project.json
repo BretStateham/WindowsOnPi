@@ -1,6 +1,5 @@
 ﻿{
   "dependencies": {
-    "Microsoft.Azure.Devices.Client": "1.0.0-preview-010",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0"
   },
   "frameworks": {
