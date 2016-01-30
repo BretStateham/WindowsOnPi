@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this lab, we will start with a relatively simple Universal Windows Platform (UWP) app, and run it on the Pi.  If you want a sample that is even simpler than what we do here, check out the <a href="http://ms-iot.github.io/content/en-US/win10/samples/Blinky.htm" target="_blank">Blinky Sample</a> from the <a href="http://ms-iot.github.io/content/en-US/win10/StartCoding.htm" target="_blank">Windows on Devices Docs, Tutorials and Samples</a>
+In this lab, we will start with a basic (but not over simplified) Universal Windows Platform (UWP) app, and run it on the Pi.  If you want a sample that is much simpler than what we do here, check out the <a href="http://ms-iot.github.io/content/en-US/win10/samples/Blinky.htm" target="_blank">Blinky Sample</a> from the <a href="http://ms-iot.github.io/content/en-US/win10/StartCoding.htm" target="_blank">Windows on Devices Docs, Tutorials and Samples</a>
 
 ## Pre-Requisites
 
@@ -27,7 +27,8 @@ Ensure that you have completed the pre-requisites above.
 
 - [Task 1: Complete the LED and Pushbutton Circuit](#Task1)
 - [Task 2: Open and review the UWP Project](#Task2)
-- [Task 3: Finally Do This](#Task3)
+- [Task 3: Run the UWP App on the Raspberry Pi 2](#Task3)
+- [Task 4: Try Running the App Locally](#Task4)
 
 ---
 
@@ -428,10 +429,67 @@ The cool thing about UWP apps though, is that we can write them in such a way as
 ---
 
 <a name="Task3"></a>
-### Task 3: Finally Do This
+### Task 3: Run the UWP App on the Raspberry Pi 2
 
-Finally, we'll do this
+Ok, we've explored the **WindowsOnPi** sample app pretty completely.  **LETS RUN IT!**.
 
-1. Step 1
-1. Step 2
-1. Step 3
+1. In Visual Studio, on the toolbar along the top, first make sure that the Target platform is set to "**ARM**"
+
+	![03010-TargetArmPlatform](images/03010-targetarmplatform.png?raw=true "Target ARM Platform")
+
+1. In the "**Windows IoT Core Watcher**" app, locate the entry for your Raspberry Pi, and copy it's IP address by right-clicking on it, and selecting "**Copy IP Address**" from the pop-up menu:
+
+	![03020-CopyIpFromWatcher](images/03020-copyipfromwatcher.png?raw=true "Copy IP Address From IoT Core Watcher")
+
+1. Back in Visual Studio, from the Target Device drop down, select "**Remote Machine**"
+
+	![03030-TargetRemoteMachine](images/03030-targetremotemachine.png?raw=true "Target Remote Machine")
+
+1. The first time you select "**Remote Machine**" as a target, the "**Remote Connections**" window should appear.  The "**Auto Detected**" devices _rarely_ match your Pi, so it is generally best to enter your setting manually. Under the "**Manual Configuration**" heading:
+
+	- Address: Paste the **IP Address for your Pi** you just copied from "**Windows IoT Core Watcher**" (or just type it in) 
+	- Authentication Mode: **Universal (Unencrypted Protocol)**
+	- Click "**Select**"
+
+	![03040-RemoteConnections](images/03040-remoteconnections.png?raw=true "Remote Connections Window")
+
+1. If the "**Remote Connections**" window didn't appear, the remote target was likely set previously.  You can always change it by going to the project's properites, and on the Debug tab, setting the target there:
+
+	![03050-ProjectDebugProperties](images/03050-projectdebugproperties.png?raw=true "ProjectDebugProperties")
+	
+1. On the Visual Studio toolbar, click the "**Remote Machine**" button (or press **F5** on your computer keyboard to start debugging):
+
+	![03060-DebugOnRemoteMachine](images/03060-debugonremotemachine.png?raw=true "DebugOnRemoteMachine")
+
+1. On the Raspberry Pi 2's HDMI Monitor, you should see the UI for the app display:
+
+	- Note the "**Status: Initialization Completed Successfully!" status.  That means that the GpioController was found, and the LED and Button pins where initialized correctly. 
+
+	- The TogglePinButton `<ToggleButton>` is currently OFF (not checked).  You can tell because it has a grey background, and the text on it reads "Turn LED ON".
+
+	![03070-UiOnPi](images/03070-uionpi.png?raw=true "UI on Pi")
+
+1. If you look at the LED, you should see that it is currently NOT lit:
+
+	![03080-LEDOff](images/03080-ledoff.png?raw=true "LED Off")
+
+	- Using the mouse on attached to the Raspberry Pi, click on the `<ToggleButton>` to toggle it's state:
+
+	![03090-ToggleButton](images/03090-togglebutton.png?raw=true "Toggle the Toggle Button")
+
+1. You should also see that the LED is now lit:
+
+	![03100-LEDOn](images/03100-ledon.png?raw=true "LED On")
+
+1. Finally, try pushing the physical pushbutton.  You should see that when you push the button, the LED turns on, and when you release it, the LED turns off.  Not only that, but the TogglePinButton `<ToggleButton>`'s state updates to match the physical button.  That is because in the physical button's "ValueChanged" event handler, we had it basically just set the ToggleButton.IsChecked state to drive the UI and LED state.  So turning the physcial button on (by pushing it) does exactly the same thing as turing the `<ToggleButton>` button control on, and turning the physical button off (by releasing it) does exactly the same thing as turning the `<ToggleButton>` control off. Kinda cool.
+
+
+	![03110-FingerOffButton](images/03110-fingeroffbutton.png?raw=true "Finger Off Button")
+
+	![03120-FingerOnButton](images/03120-fingeronbutton.png?raw=true "Finger On Button")
+
+---
+
+<a name="Task4"></a>
+### Task 4: Try Running the App Locally
+
