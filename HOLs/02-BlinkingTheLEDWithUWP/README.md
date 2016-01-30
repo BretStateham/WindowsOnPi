@@ -34,18 +34,19 @@ Ensure that you have completed the pre-requisites above.
 <a name="Task1"></a>
 ### Task 1: Complete the LED and Pushbutton Circuit
 
-In this task you will use the various components to complete the circuit show in the following diagram:
+In this task you will complete the circuit needed for our first app. 
 
-![01010-LedAndPushbuttonCircuit](images/01010-ledandpushbuttoncircuit.png?raw=true "LED and Pushbutton Circuit") 
+1. <span style="color: red;">***REMOVE THE POWER AND HDMI CABLES FROM YOUR RASPBERRY PI 2***</span>.  This will ensure that you do not accidentally short-out anything on the board while you are completing the circuit. 
 
-You can use this image as a reference to understand what the Raspberry Pi pins represent:
+1.  As a reference, you can identify the pins on the Raspberry Pi 2 using the following image (***you can right-click on the image below to open in a new browser window or tab***).
 
-![01020-RPi2Pinouts](images/01020-rpi2pinouts.png?raw=true "Raspberry Pi 2 Pinouts")
+	![01020-RPi2Pinouts](images/01020-rpi2pinouts.png?raw=true "Raspberry Pi 2 Pinouts")
 
+1. Use the following diagram to complete the circuit. <span style="color: red;">***WE WILL BE ADDING ADDITIONAL COMPONENTS IN THE NEXT LAB, DO YOUR BEST TO LAYOUT THE BREADBOARD AS DIGRAMMED BELOW.  THIS WILL ENSURE THERE IS ROOM FOR THE ADDITIONAL COMPONENTS ADDED IN THE NEXT LAB***</span> (***you can right-click on the image below to open in a new browser window or tab***):
 
-1. Step 1
-1. Step 2
-1. Step 3
+	![01010-LedAndPushbuttonCircuit](images/01010-ledandpushbuttoncircuit.png?raw=true "LED and Pushbutton Circuit") 
+
+1. Double check your work, and when you are certain the circuit looks correct, re-connect the HDMI cable, then the Power cable to your Raspberry Pi 2 to boot it up. 
 
 ---
 
