@@ -501,16 +501,10 @@ namespace WindowsOnPi
         new IoTHubSensor("0C8A350B-D0B1-44A8-BDD4-245135BAF2F5", "Photoresistor", "Light", "Lumens"),
       };
 
-      //iotHubHelper = new IoTHubHelper(
-      //  iotDeviceConnectionString: "PASTE_YOUR_IOT_HUB_DEVICE_CONNECTION_STRING_HERE",
-      //  organization: "ENTER_A_NAME_FOR_YOUR_ORGANIZATION_HERE",
-      //  location: "ENTER_A_NAME_FOR_YOUR_DEVICES_LOCATION_HERE");
-
       iotHubHelper = new IoTHubHelper(
-        iotDeviceConnectionString: "HostName=OcAzureHub.azure-devices.net;DeviceId=WindowsOnPiDemo;SharedAccessKey=5vOBQ9DHuSSwElIRUHqxdwivJNy3O59UnSX3i0wTBIA=",
-        organization: "Microsoft",
-        location: "Bret's Garage",
-        sensorList: sensors);
+        iotDeviceConnectionString: "PASTE_YOUR_IOT_HUB_DEVICE_CONNECTION_STRING_HERE",
+        organization: "ENTER_A_NAME_FOR_YOUR_ORGANIZATION_HERE",
+        location: "ENTER_A_NAME_FOR_YOUR_DEVICES_LOCATION_HERE");
 
       // Initialize the iotHubSendTimer
       iotHubSendTimer = new DispatcherTimer();
