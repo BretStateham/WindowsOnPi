@@ -34,9 +34,13 @@ Ensure that you have completed the pre-requisites above.
 <a name="Task1"></a>
 ### Task 1: Complete the LED and Pushbutton Circuit
 
-In this task you will use the various components to complete the circuit show in the following diagram:
+In this task you will use the various components to complete the circuit show in the following diagram (<a href="images/01010-LedAndPushbuttonCircuit" target="_blank">open diagram in a separate tab or window</a>):
 
 ![01010-LedAndPushbuttonCircuit](images/01010-ledandpushbuttoncircuit.png?raw=true "LED and Pushbutton Circuit") 
+
+You can use this image as a reference to understand what the Raspberry Pi pins represent:
+
+![01020-RPi2Pinouts](images/01020-rpi2pinouts.png?raw=true "Raspberry Pi 2 GPIO Header Pins")
 
 1. Step 1
 1. Step 2
