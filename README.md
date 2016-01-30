@@ -19,13 +19,13 @@ At the completion of this workshop, the reader should be able to:
 
 To complete the steps in this lab, you will need 
 
-- **A computer running Windows 10**.  You can't develop Windows 10 Apps for the Pi without Windows 10 on your host computer.  You can [upgrade your existing copy of Windows 7 or Windows 8.1 to Windows 10 for Free](https://www.microsoft.com/en-us/windows/windows-10-upgrade).  Or if you don't have Windows you can [download a 90 Day Evaluation Copy of Windows 10 Enterprise](https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise) 
+- **A computer running Windows 10**.  You can't develop Windows 10 Apps for the Pi without Windows 10 on your host computer.  You can <a href="https://www.microsoft.com/en-us/windows/windows-10-upgrade" target="_blank">upgrade your existing copy of Windows 7 or Windows 8.1 to Windows 10 for Free</a>.  Or if you don't have Windows you can <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise" target="_blank">download a 90 Day Evaluation Copy of Windows 10 Enterprise</a> 
 - **Visual Studio 2015 with Update 1** (the Community Edition is acceptable).  Ensure when installing Visual Studio that you include 
 
 	- **Microsoft Web Developer Tools**
 	- **Universal Windows App Development Tools**
 
-- To ensure that your computer is setup correctly, follow the steps under the **"Setup your PC"** section here: http://ms-iot.github.io/content/en-US/GetStarted.htm
+- To ensure that your computer is setup correctly, follow the steps under the **"Setup your PC"** section here: <a href="http://ms-iot.github.io/content/en-US/GetStarted.htm" target="_blank">http://ms-iot.github.io/content/en-US/GetStarted.htm</a>
 
 ## The Lab Hardware
 
@@ -37,21 +37,21 @@ The hardware used in this lab was based on the components available in a kit pro
 Top to bottom, left to right:
 
 - Micro USB Cable
-- 5V/2A Power Supply ([Link](http://www.belkin.com/us/F8J052/p/P-F8J052/))
+- 5V/2A Power Supply (<a href="http://www.belkin.com/us/F8J052/p/P-F8J052/" target="_blank">Link</a>)
 - Ethernet Cable
-- USB to Ethernet Adapter ([Link](http://amzn.com/B00E9655LU))
+- USB to Ethernet Adapter (<a href="http://amzn.com/B00E9655LU" target="_blank">Link</a>)
 - HDMI Cable
 - Solderless Breadboard
 - Bag of components 01
 	- Red, Green, Blue and LEDs
 	- RGB LED
-	- Force Sensitive Resistor (FSR 402) ([Data Sheet](http://interlinkelectronics.com/datasheets/Datasheet_FSR.pdf))
-	- Photoresistor (any will do) ([Data Sheet](http://www.token.com.tw/pdf/resistor/cds-resistor-pgm.pdf))
-	- TMP36GZ Temperature Sensor ([Data Sheet](http://www.analog.com/media/en/technical-documentation/data-sheets/TMP35_36_37.pdf))
+	- Force Sensitive Resistor (FSR 402) (<a href="http://interlinkelectronics.com/datasheets/Datasheet_FSR.pdf" target="_blank">Data Sheet</a>)
+	- Photoresistor (any will do) (<a href="http://www.token.com.tw/pdf/resistor/cds-resistor-pgm.pdf" target="_blank">Data Sheet</a>)
+	- TMP36GZ Temperature Sensor (<a href="http://www.analog.com/media/en/technical-documentation/data-sheets/TMP35_36_37.pdf" target="_blank">Data Sheet</a>)
 	- 16GB Micro SD Card with Adapter
-	- SN74HC595N Shift Register ([Data Sheet](http://www.ti.com/lit/ds/symlink/sn74hc595.pdf))
-	- MCP23008 I2C Port Expander ([Data Sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21919e.pdf))
-	- MCP3008 10-bit Analog-to-Digital Converter (ADC) ([Data Sheet](http://ww1.microchip.com/downloads/en/DeviceDoc/21295d.pdf))
+	- SN74HC595N Shift Register (<a href="http://www.ti.com/lit/ds/symlink/sn74hc595.pdf" target="_blank" >Data Sheet</a>)
+	- MCP23008 I2C Port Expander (<a href="http://ww1.microchip.com/downloads/en/DeviceDoc/21919e.pdf" target="_blank">Data Sheet</a>)
+	- MCP3008 10-bit Analog-to-Digital Converter (ADC) (<a href="http://ww1.microchip.com/downloads/en/DeviceDoc/21295d.pdf" target="_blank">Data Sheet</a>)
 
 - Bag of components 02
 

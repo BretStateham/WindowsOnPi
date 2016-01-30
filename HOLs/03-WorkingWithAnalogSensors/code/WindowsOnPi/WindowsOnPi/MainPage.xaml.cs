@@ -221,14 +221,30 @@ namespace WindowsOnPi
       });
     }
 
-    #endregion LED and Button Members
-
     #region ADC/SPI Members
 
     /// <summary>
     /// An enumeration of the various types of ADC Chips
     /// </summary>
     enum AdcChip { NONE, MCP3002, MCP3208, MCP3008 };
+
+    // Different bytes need to be sent over SPI depending on the type 
+    // of ADC chip you have:
+
+    /// <summary>
+    /// The configuration bytes that need to be sent to MCP3002 ADCs
+    /// </summary>
+    private const byte MCP3002_CONFIG = 0x68; /* 01101000 channel configuration data for the MCP3002 */
+
+    /// <summary>
+    /// The configuration bytes that need to be sent to MCP3208 ADCs
+    /// </summary>
+    private const byte MCP3208_CONFIG = 0x06; /* 00000110 channel configuration data for the MCP3208 */
+
+    /// <summary>
+    /// The configuration bytes that need to be sent to MCP3008 ADCs
+    /// </summary>
+    private readonly byte[] MCP3008_CONFIG = { 0x01, 0x80 }; /* 00000001 10000000 channel configuration data for the MCP3008 */
 
     /// <summary>
     /// Type type of Analog Digital Converter (ADC) chip being used
@@ -249,24 +265,6 @@ namespace WindowsOnPi
     /// Manages the SPI communications with the Analog Digital Converter (ADC)
     /// </summary>
     private SpiDevice SpiADC;
-
-    // Different bytes need to be sent over SPI depending on the type 
-    // of ADC chip you have:
-
-    /// <summary>
-    /// The configuration bytes that need to be sent to MCP3002 ADCs
-    /// </summary>
-    private const byte MCP3002_CONFIG = 0x68; /* 01101000 channel configuration data for the MCP3002 */
-
-    /// <summary>
-    /// The configuration bytes that need to be sent to MCP3208 ADCs
-    /// </summary>
-    private const byte MCP3208_CONFIG = 0x06; /* 00000110 channel configuration data for the MCP3208 */
-
-    /// <summary>
-    /// The configuration bytes that need to be sent to MCP3008 ADCs
-    /// </summary>
-    private readonly byte[] MCP3008_CONFIG = { 0x01, 0x80 }; /* 00000001 10000000 channel configuration data for the MCP3008 */
 
     /// <summary>
     /// The timer that is used to periodically read values from the ADC

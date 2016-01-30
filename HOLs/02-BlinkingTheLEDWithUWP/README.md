@@ -525,5 +525,6 @@ In this last task, we're simply going to run the same app we just ran on the Ras
 
 1. What does that mean?  Well as a developer you may have a need for an app that runs on multiple devices, but takes advantages of whatever features are on the device where it runs.  Here we can see we have an app that runs, albeit with limited functionality on one platform, but takes advantage of available hardware when running on another platform.  
 
+1. When you are done testing, stop debugging in Visual Studio to close the app. 
 
-
+1. Close Visual Studio when you are done.  We will open a fresh copy of the **WindowsOnPi** solution in the next lab. 

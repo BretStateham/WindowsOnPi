@@ -29,10 +29,6 @@
       VerticalAlignment="Center"
       Margin="10"/>
 
-    <!-- ============================================ -->
-    <!-- BEGIN - XAML ADDED FOR THE ANALOG SENSOR LAB -->
-    <!-- ============================================ -->
-
     <TextBlock
       x:Name="StatusText"
       Text="STATUS:"
@@ -52,6 +48,10 @@
       Margin="10" 
       Checked="TogglePinButton_Checked"
       Unchecked="TogglePinButton_Unchecked"/>
+
+    <!-- ============================================ -->
+    <!-- BEGIN - XAML ADDED FOR THE ANALOG SENSOR LAB -->
+    <!-- ============================================ -->
 
     <TextBlock
       x:Name="LightSensorValueLabel"
