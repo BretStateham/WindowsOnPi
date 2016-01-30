@@ -504,7 +504,8 @@ namespace WindowsOnPi
       iotHubHelper = new IoTHubHelper(
         iotDeviceConnectionString: "PASTE_YOUR_IOT_HUB_DEVICE_CONNECTION_STRING_HERE",
         organization: "ENTER_A_NAME_FOR_YOUR_ORGANIZATION_HERE",
-        location: "ENTER_A_NAME_FOR_YOUR_DEVICES_LOCATION_HERE");
+        location: "ENTER_A_NAME_FOR_YOUR_DEVICES_LOCATION_HERE",
+        sensorList: sensors);
 
       // Initialize the iotHubSendTimer
       iotHubSendTimer = new DispatcherTimer();

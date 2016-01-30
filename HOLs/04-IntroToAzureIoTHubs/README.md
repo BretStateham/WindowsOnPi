@@ -124,22 +124,214 @@ Again, we've added some code to the WindowsOnPi UWP app to work with Azure IoT H
 
 	![03020-SolutionExplorerChanges](images/03020-solutionexplorerchanges.png?raw=true "Solution Explorer Changes")
 
-1. Open the 
+1. In the "**Solution Explorer**" window, double click on the "**MainPage.xaml.cs**" code behind file open it in the editor.  Then expand the `IoT Hub Members` region, to see the code that was added for this lab. 
 
-1. Step 1
-1. Step 2
-1. Step 3
+1. First, there are some members:
 
+	- The `iotHubHelper` is an instance of the IoTHubHelper class.
+	- The `iotHubSendTimer` `DispatcherTimer` and it's `iotHubSendTimerPeriod` control the frequency that sensor data messages are sent to Azure
+	- The `iotHubReceiveTimer` `DispatcherTimer` and it's `iotHubReceiveTimerPeriod` control the receiving of messages from Azure
 
+	````C#
+	/// <summary>
+	/// The IoTHubHelper instance used to simplify Azure IoT Hub communications
+	/// </summary>
+	IoTHubHelper iotHubHelper;
+
+	/// <summary>
+	/// The timer used to manage how often data is sent to the Azure IoT Hub
+	/// </summary>
+	private DispatcherTimer iotHubSendTimer;
+
+	/// <summary>
+	/// The time interval (in milliseconds) for the iotHubSendTimer
+	/// </summary>
+	private int iotHubSendTimerPeriod = 10000;
+
+	/// <summary>
+	/// The timer used to manage how often data is received from the Azure IoT Hub
+	/// </summary>
+	private DispatcherTimer iotHubReceiveTimer;
+
+	/// <summary>
+	/// The time interval (in milliseconds) for the iotHubReceiveTimer
+	/// </summary>
+	private int iotHubReceiveTimerPeriod = 10000;
+	````
+
+1. The `InitIoTHub()` initializes light sensor message formatter, the devices connection to the IoTHub, and it starts the send and receive timers.  A call to IotHub was added to the `InitAll()` method. 
+
+	````C#
+	/// <summary>
+	/// Initializes the IoT Hub sensors and communications
+	/// </summary>
+	private void InitIotHub()
+	{
+	  // We'll just have once sensor, our photo resistor, but you could add more
+	  // Since there could be multiple, a collection (LIST) of sensors is required.
+	  // 
+	  // Each sensor in the collection should have a unique ID.  
+	  // We'll use a GUID for that. 
+	  // You can easily generate a new GUID in Visual Studio if from the menu bar
+	  // you select "Tools" | "Create GUID", then select the registry format, 
+	  // generate a GUID, then copy and paste it for the desired sensor 
+	  // then remove the curly braces. Whew.
+	  List<IoTHubSensor> sensors = new List<IoTHubSensor>()
+	  {
+		 new IoTHubSensor("0C8A350B-D0B1-44A8-BDD4-245135BAF2F5", "Photoresistor", "Light", "Lumens"),
+	  };
+
+	iotHubHelper = new IoTHubHelper(
+	  iotDeviceConnectionString: "PASTE_YOUR_IOT_HUB_DEVICE_CONNECTION_STRING_HERE",
+	  organization: "ENTER_A_NAME_FOR_YOUR_ORGANIZATION_HERE",
+	  location: "ENTER_A_NAME_FOR_YOUR_DEVICES_LOCATION_HERE",
+	  sensorList: sensors);
+
+	  // Initialize the iotHubSendTimer
+	  iotHubSendTimer = new DispatcherTimer();
+	  iotHubSendTimer.Tick += IotHubSendTimer_Tick;
+	  iotHubSendTimer.Interval = TimeSpan.FromMilliseconds(iotHubSendTimerPeriod);
+	  iotHubSendTimer.Start();
+
+	  // Initialize the iotHubReceiveTimer
+	  iotHubReceiveTimer = new DispatcherTimer();
+	  iotHubReceiveTimer.Tick += IotHubReceiveTimer_Tick;
+	  iotHubReceiveTimer.Interval = TimeSpan.FromMilliseconds(iotHubReceiveTimerPeriod);
+	  iotHubReceiveTimer.Start();
+	}
+	````
+
+1. The `IoTHubSendTimer_Tick` method is invoked by the `iotHubSendTimer`.  It's job is to retrieve the current adcLightSensorValue, and assign in to the IoTHubSensor helper that is used to help format the messages sent to IoTHub. It then asks the `iotHubHelper` to send the sensor's data as a message to the IoT Hub. 
+
+	````C#
+	/// <summary>
+	/// Called by the iotHubSendTimer.  
+	/// Used to periodically send sensor data to an Azure IoT Hub
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	private void IotHubSendTimer_Tick(object sender, object e)
+	{
+	  // As long as we are connected to the ADC over SPI
+	  // publish the data to the IoT Hub.
+	  if (SpiADC != null)
+	  {
+		 // Find the IotHubSensor instance used to publish data for our "Light" sensor..
+		 IoTHubSensor lightSensor = iotHubHelper.sensors.Find(s => s.measurename == "Light");
+		 if (lightSensor != null)
+		 {
+			lightSensor.value = adcLightSensorValue;
+			iotHubHelper.SendSensorData(lightSensor);
+		 }
+	  }
+	}
+	````
+
+1. The `IotHubReceiveTimer_Tick` method is invoked by the `iotHubReceiveTimer` timer. It uses the `iotHubHelper` instance to retrieve the next message (if any) from the IoT Hub.  It then parses the message data looking for an "ON" command.  If "ON" is found, it sets the `TogglePinButton.IsChecked` property to true which should turn on the LED. Otherwise it sets the property to false which should turn off the LED.  For this to truly work though, the light sensor shouldn't be turning on the LED when it is dark.  You will want to turn off the `<CheckBox x:Name="ToggleLedWhenDark">` at runtime to make this work. 
+
+	````C#
+	/// <summary>
+	/// Called by the iotHubReceiveTimer.
+	/// Used to periodically receive data from an Azure IoT Hub
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	private async void IotHubReceiveTimer_Tick(object sender, object e)
+	{
+	  string message = await iotHubHelper.ReceiveMessage();
+
+	  if (message != string.Empty)
+	  {
+		 string debugMsg = string.Format("Command Received: {0}", message);
+		 Debug.WriteLine(debugMsg);
+			  
+		 switch (message.ToUpperInvariant())
+		 {
+			case "ON":
+			  //Simulate the toggle button being Checked
+			  TogglePinButton.IsChecked = true;
+			  break;
+			default:
+			  //Simulate the toggle button being UnChecked
+			  TogglePinButton.IsChecked = false;
+			  break;
+		 }
+
+	  }
+	}
+	````
+
+1. Before you can run the app, you need to make some changes in the `InitIotHub()` method locate the following block of code: 
+
+	````C#
+	iotHubHelper = new IoTHubHelper(
+	  iotDeviceConnectionString: "PASTE_YOUR_IOT_HUB_DEVICE_CONNECTION_STRING_HERE",
+	  organization: "ENTER_A_NAME_FOR_YOUR_ORGANIZATION_HERE",
+	  location: "ENTER_A_NAME_FOR_YOUR_DEVICES_LOCATION_HERE",
+	  sensorList: sensors);
+	````
+
+1. In the block above, replace `"PASTE_YOUR_IOT_HUB_DEVICE_CONNECTION_STRING_HERE"` with the connection string you copied from Device Explorer in the last task, and replace `"ENTER_A_NAME_FOR_YOUR_ORGANIZATION_HERE"` and `"ENTER_A_NAME_FOR_YOUR_DEVICES_LOCATION_HERE"` with appropriate values.  For example:
+
+	![03030-CopyDeviceConnectionString](images/03030-copydeviceconnectionstring.png?raw=true "Copy Device Connection String Reminder")
+
+	````C#
+	iotHubHelper = new IoTHubHelper(
+	  iotDeviceConnectionString: "HostName=bssiothub.azure-devices.net;DeviceId=bretspi;SharedAccessKey=...=",
+	  organization: "SDSU",
+	  location: "E207",
+      sensorList: sensors);
+	````
 ---
 
 <a name="Task4"></a>
 ### Task 4: Run the UWP App on the Raspberry Pi 2
 
-Finally, we'll do this
+Let's give it a try.
 
-1. Step 1
-1. Step 2
-1. Step 3
+1. In Visual Studio, ensure that the target platform is set to ARM, and the target debug device is set to "Remote Machine" and configured to deploy to your Pi.  ([You can refer to Task 3 in the Blinking the LED lab for a more detailed reminder](HOLs/02-BlinkingTheLEDWithUWP#Task3))
 
+	![04010-debugtargets](images/04010-debugtargets.png?raw=true "Debug Targets")
 
+	![04020-remoteconnections](images/04020-remoteconnections.png?raw=true "Remote Connections")
+
+1. Press the Debug button (or press _F5_) to start the debug session on the Pi.
+
+1. Once the app is running on the Pi, return to the "Device Explorer" app on your computer.  Switch to the "Manage" tab:
+
+	- Confirm the "**Event Hub**" name
+	- Confirm the "**Device ID"** (make sure it matches the ID you created for your device previously)
+	- Click the "**Monitor**" button
+
+	![04030-MonitorDevice](images/04030-monitordevice.png?raw=true "MonitorDevice")
+
+1. Once every 10 seconds (10000 milliseconds), the app should seen the current adcLightSensorValue to the IoT Hub.  If you want to change the frequency, modify the `iotHubSendTimerPeriod` value:
+
+	![04040-MessagesSending](images/04040-messagessending.png?raw=true "Messages Sending")
+
+1. You can also send messages from the IoT Hub back to the device.  We'll send messages to control the LED remotely, but before we do we need to stop automatically setting the LED based on the current light sensor value.  While the app is still running on the Pi, **UNCHECK** the "**Toggle LED When It Is Dark**" checkbox:
+
+	![04050-TurnOffCheckbox](images/04050-turnoffcheckbox.png?raw=true "Turn Off Checkbox")
+
+1. Next, on your computer, return to the "Device Explorer" app, and switch to the "**Messages To Device**" tab. Again, ensure the right **IoT Hub** and **Device ID** are selected.  
+
+	- Type **ON** in the Message box.
+	- **UNCHECK** the "Add Time Stamp" checkbox
+	- **CHECK** the "Monitor Feedback Endpoint" checkbox
+	- Click the "Send" button. 
+
+	![04060-SendMessage](images/04060-sendmessage.png?raw=true "Send Message")
+
+1. Within 10 seconds (10000 milliseconds) the Pi should receive and parse the message and turn "ON" the LED.  
+
+	![04070-ToggledOn](images/04070-toggledon.png?raw=true "Toggled On")
+
+1. You can send an message other than "ON" to turn the LED back off. Here, we'll send "OFF":
+
+	> **Note**: With the "**Monitor Feedback Endpoint** checkbox on, it looks for confirmation messages coming back from the Pi that the message was read. 
+
+	![04080-SendOffMessage](images/04080-sendoffmessage.png?raw=true "Send OFF Message")
+
+	![04090-ToggledOff](images/04090-toggledoff.png?raw=true "Toggled Off")
+
+1. You can stop the debugger and close Visual Studio when you are done.
