@@ -238,13 +238,8 @@ Ensure that you have completed the pre-requisites above.
 1. At the end, there is a chain of methods that are called when the `adcTimer` "ticks" and indicates it's time to read the current light sensor (photoresistor) value from the ADC.
 	
 	- `AdcTimer_Tick()` is the method called by the `adcTimer` `DispatcherTimer` whenever it "ticks".  The method calles the `ReadLightSensor()` method to get the latest light sensor (photoresistor) value, and if the `<CheckBox x:Name="ToggleLedWhenDard"`> checkbox is checked, calls the `LightLED()` method to turn the LED on if it is dark (the `adcLightSensorValue` is over half of the ADC chip's resolution).
-
-
 	- `ReadLightSensor()` Uses the SPI channel to send a property formatted request to the ADC based on the ADC type, and then receives the data back from it.  It then calls the `convertToInt()` method to convert the sensor data received into an int. 
-
-
 	- The `convertToInt()` method coverts the byte data received from the ADC in the `ReadLightSensor()` method.  The means of converting the byte data to an int varies by ADC type.  
-
 	- Finally the `LightLED()` method compares the adcLightSensorValue to the maximum value of the given ADCs resolution. If the adcLightSensor value is over half of the ADC resolution, it toggles the `<ToggleButton x:name="TogglePinButton">` state which in turn updates the UI and sets the LED.   
 
 		````C#
