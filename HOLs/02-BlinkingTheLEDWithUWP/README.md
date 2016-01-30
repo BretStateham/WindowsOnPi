@@ -488,8 +488,42 @@ Ok, we've explored the **WindowsOnPi** sample app pretty completely.  **LETS RUN
 
 	![03120-FingerOnButton](images/03120-fingeronbutton.png?raw=true "Finger On Button")
 
+1. When you are done debugging your app on the Pi, in Visual Studio, click the "**STOP**" button on toolbar (_Shift+F5_):
+
+	![03130-StopDebugging](images/03130-stopdebugging.png?raw=true "Stop Debugging")
+
+1. When your app has stopped debugging on the Pi, notice that the Raspberry Pi reverts back to the default IoT Core application.  Only a SINGLE app can control the UI on Windows IoT Core at a time.  
+
+	![03140-DefaultApp](images/03140-defaultap.png?raw=true "Default App")
+
 ---
 
 <a name="Task4"></a>
 ### Task 4: Try Running the App Locally
+
+In this last task, we're simply going to run the same app we just ran on the Raspberry Pi 2, but this time we'll run it our our laptop instead.  Why?  Well it proves the point of UWP apps being "Universal".  They CAN run on my Windows platform.  That means that if you have an app ***THAT MAKES SENSE*** to run on say Windows, Phone, XBOX, HoloLens, and or the Raspberry Pi, you can do so.  Of course, that doesn't mean you **HAVE** to run your app everywhere. The choice is yours.  
+
+1. Back in Visual Studio on your computer change the Target platform to x86:
+
+	![04010-TargetX86](images/04010-targetx86.png?raw=true "Target x86")
+
+1. You should see that the target debug device automatically switched back to "**Local Machine**".  If not, from the drop down, select "**Local Machine**":
+
+	![04020-DebugTargetLocalMachine](images/04020-debugtargetlocalmachine.png?raw=true "Debug Target Local Machine")
+
+1.  Next, click the Debug button (or press _F5_) to start debugging on the local machine. 
+
+	![04030-DebugLocally](images/04030-debuglocally.png?raw=true "Debug Locally")
+
+1. When the app runs, notice that the StatusText `<TextBlock>` states that there is no GPIO controller on the device.  That message came from the `InitGpio()` method when it tried to initialize the GpioController.  
+
+	![04040-NoGpioController](images/04040-nogpiocontroller.png?raw=true "No Gpio Controller")
+
+1. However the toggle button still works, although, with no GpioController, and no LEDs, there is no obvious effect other than the button's background color changing:
+
+	![04040-ToggleButtonWorks](images/04040-togglebuttonworks.png?raw=true "Toggle Button Works")
+
+1. What does that mean?  Well as a developer you may have a need for an app that runs on multiple devices, but takes advantages of whatever features are on the device where it runs.  Here we can see we have an app that runs, albeit with limited functionality on one platform, but takes advantage of available hardware when running on another platform.  
+
+
 
