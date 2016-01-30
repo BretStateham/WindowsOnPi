@@ -171,7 +171,9 @@ The cool thing about UWP apps though, is that we can write them in such a way as
 	- A class called `MainPage`
 	- A Constructor (also called `MainPage`) that gets run automatically when an instance of the class is created.  Since `MainPage` implements the UI for our app, the app automatically creates it at run it, and that is when the constructor gets called. 	The constructor initializes the elements on the page (`this.InitializeComponent()`) and calls a method written for this lab called `IntiAll()`.
 	- The `InitAll()` method was written for this lab, and is first used to initialize the "General Purpose Input Output" (GPIO) functionality ***IF IT EXISTS*** on the board where the app runs by calling another method called `InitGpio()`.  Whey have one init method that calls another? We'll we'll have other things to "init" later, like Serial Peripheral Interface (SPI) connections to an Analog Digital Converter (ADC), and connections to an Azure IoTHub.  So this one `InitAll()` method was created so we can easily call the other init methods from it in the future in a nice managed way. 
--	Lastly, notice in the `InitAll()` method, that if any "**Exceptions**" (errors) are "**caught** (`catch (Exception ex)`), then it will get the message from the exception and show it in the StatusText `<TextBlock>` on the UI.  Otherwise, if ther are no exceptions, then it will show the string `"Status: Initialization Completed Successfully!"` in the StatusText `<TextBlock>`.
+	- Notice in the `InitAll()` method, that if any "**Exceptions**" (errors) are "**caught** (`catch (Exception ex)`), then it will get the message from the exception and show it in the StatusText `<TextBlock>` on the UI.  Otherwise, if ther are no exceptions, then it will show the string `"Status: Initialization Completed Successfully!"` in the StatusText `<TextBlock>`.
+
+	- Lastly, there is a the `#region LED and Button Members` which has been commented out here.  We'll discuss that in more depth next. 
 
 	````C#
 	/// <summary>
@@ -213,9 +215,215 @@ The cool thing about UWP apps though, is that we can write them in such a way as
 	}
 	````
 
+1.  In the **MainPage.xaml.cs** code file, expand the `LED and Button Members` region by clicking on the "+" button to the left of it.  The `LED and Button Members` contains the members (variables, methods, etc) that will help us work with the LED and momentary pushbutton we wired up to the Raspberry Pi earlier:
 
+	> **Note**: "**Regions**" in visual studio are simply a method to organize a bunch of code in a file.  The allow you to create "regions" of code that can be collapsed or expanded in the editor.  They have no effect on what the code does, they are merely are an editor feature.  
 
-1.  
+	![01090-LEDAndButtonMembers](images/01090-ledandbuttonmembers.png?raw=true "LED and Button Members")
+
+1. First there are a number of variable declarations.  These represent the GPIO Pin numbers that the LED and Button are connected to, as well as declare a `GpioPin` instance for each that we will use to interact with the pin on the Raspberry Pi. 
+
+	````C#
+	/// <summary>
+	/// The GPIO Pin Number that the Cathode of the LED is connected to
+	/// </summary>
+	private const int LED_PIN = 5;
+
+	/// <summary>
+	/// A managed interface to the GPIO Pin the LED is connected to
+	/// </summary>
+	private GpioPin ledPin;
+
+	/// <summary>
+	/// The GPIO Pin Number that one leg of the momentary push button is connected to
+	/// </summary>
+	private const int BUTTON_PIN = 6;
+
+	/// <summary>
+	/// A managed interface to the GPIO Pin the button is connected to
+	/// </summary>
+	private GpioPin buttonPin;
+	````
+1. Next is the `InitGpio()` method that get's called from the `InitAll()` method we discussed previously.  The cool thing about this, and the IoT Extensions for UWP is that we can ***TRY*** to initialize the GpiController on the current board.  If we are on a board (like the Raspberry Pi 2) that has one, it should work.  If we however are running on our laptop, where there isn't a GpiController, we won't get the controller, but the app won't crash.  The app COULD still work, as long as it could still do something useful without the Gpio functionality.  Anyhow, if the GpioController is found, the LED and button pins are initialized, otherwise, an exception is thrown back to `InitAll()`, which will then use the exceptions message to update the StatusText `<TextBlock>`:
+
+	````C#
+	/// <summary>
+	/// Initializes the GpioController on the board if it exists, and initializes the Led and Button pins.
+	/// </summary>
+	private void InitGpio()
+	{
+	  //Attempt to get the GpioController instance for the 
+	  //device.  
+	  var gpio = GpioController.GetDefault();
+
+	  // If no GpioController was found (gpio==null), null out the pins
+	  // And throw an exception indicating there was no GPIO controller
+	  if (gpio == null)
+	  {
+		 ledPin = null;
+		 buttonPin = null;
+		 throw new Exception("There is no GPIO controller on this device.");
+	  }
+
+	  //Init LED pin
+	  ledPin = gpio.OpenPin(LED_PIN);
+	  ledPin.SetDriveMode(GpioPinDriveMode.Output);
+	  SetLedState(false);
+
+	  //Init Button pin
+	  buttonPin = gpio.OpenPin(BUTTON_PIN);
+
+	  //Remember Windows 10 IoT Core runs on multiple boards.
+	  //If the board's pin that the button is connected to supports
+	  //pullup resistors, enable the pullup resistor, otherwise, just use
+	  //it as a normal input
+	  if (buttonPin.IsDriveModeSupported(GpioPinDriveMode.InputPullUp))
+	  {
+		 buttonPin.SetDriveMode(GpioPinDriveMode.InputPullUp);
+	  }
+	  else
+	  {
+		 buttonPin.SetDriveMode(GpioPinDriveMode.Input);
+	  }
+
+	  //Set a debounce timeout to filter out switch bounce noice from a button press
+	  buttonPin.DebounceTimeout = TimeSpan.FromMilliseconds(50);
+
+	  //Wire up an event hander to be called whenever the button gets pressed.
+	  buttonPin.ValueChanged += ButtonPin_ValueChanged;
+	}
+	````
+
+1. Next the `SetLedState()` method is used to actually turn the pin that the LED is connected to on or off. It just does a little safety check to make sure that the GpioPin for the LED has been initialized (`ledPin!=null`). Also, because of the way the circuit is wired, we need to pull the pin LOW to turn the LED ON.  The comments explain it more thoroughly:
+
+	````C#
+	/// <summary>
+	/// Used to turn the physical LED on or off.
+	/// </summary>
+	/// <param name="on">Boolean value representing the LED state.  
+	/// true = on, false = off</param>
+	void SetLedState(bool on)
+	{
+	  if (ledPin != null)
+	  {
+		 if (on)
+		 {
+			//Setting the pin LOW, pulls it down to ground
+			//and allows current to flow from the 3.3v source
+			//connected to the anode of the LED down through
+			//the cathode, and thus the LED is turned ON
+			ledPin.Write(GpioPinValue.Low);
+		 }
+		 else
+		 {
+			//Setting the pin High, pulls it up to 3.3v
+			//which matches the 3.3v source connected 
+			//to the anode of the LED thus no current
+			//flows, and the LED is turned OFF
+			ledPin.Write(GpioPinValue.High);
+		 }
+	  }
+	}
+	````
+1. The `UpdateToggleButtonAndLED()` method is just a helper method that centralizes the logic to both update the text displayed on the TogglePinButton `<ToggleButton>` as well as to turn the LED on or off, based on a boolean value that is passed in.  
+
+	````C#
+	/// <summary>
+	/// Used to update the Text on the TogglePinButton button controler
+	/// As well as to turn the physical LED on or off.
+	/// </summary>
+	/// <param name="on">Boolean value representing the button and LED state.  
+	/// true = on, false = off</param>
+	private void UpdateToggleButtonAndLED(bool on)
+	{
+	  //If the toggle button is ON (Checked)
+	  if (on)
+	  {
+		 //Turn the LED on.
+		 SetLedState(true);
+
+		 //Set the content (text) displayed on the button
+		 //To indicate that the LED can now be turned OFF (since it is on)
+		 TogglePinButton.Content = "Turn LED OFF";
+	  }
+	  else
+	  {
+		 //Turn the LED off.
+		 SetLedState(false);
+
+		 //Set the content (text) displayed on the button
+		 //To indicate that the LED can now be turned ON (since it is off)
+		 TogglePinButton.Content = "Turn LED ON";
+	  }
+	}
+	````
+
+1. If you recall, the TogglePinButton `<ToggleButton>` declared in **MainPage.xaml** had to events, `Checked` and `Unchecked` wired up to methods in the code behind file:
+<!-- mark:3-4 -->
+````XML
+<ToggleButton 
+  ...
+  Checked="TogglePinButton_Checked"
+  Unchecked="TogglePinButton_Unchecked"/>
+````
+
+1. Those event handlers are what are declared next in the `LED and Button Members` region.  The `TogglePinButton_Checked` method is called when the users turns ON the toggle button, and the `TogglePinButton_Unchecked` is called when the toggle button is turned off.  Both methods simply leverage the `UpdateToggleButtonAndLED()` method we just discussed, passing in a boolean value representing the current state of the button.  
+
+	````C#
+	/// <summary>
+	/// Fired whenever the TogglePinButton is "Checked" (ON)
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	private void TogglePinButton_Checked(object sender, RoutedEventArgs e)
+	{
+	  //Update the toggle button text and turn on the led
+	  UpdateToggleButtonAndLED(true);
+	}
+
+	/// <summary>
+	/// Fired whenever the TogglePinButton is "Unchecked" (OFF)
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="e"></param>
+	private void TogglePinButton_Unchecked(object sender, RoutedEventArgs e)
+	{
+	  //Update the toggle button text and turn off the led
+	  UpdateToggleButtonAndLED(false);
+	}
+	````
+
+1. Lastly, is the handler for the Physical pushbutton.  This pushbutton pin, and it's ValueChanged event event handler initiazlied up in the `InitGpio()` method.  We finally get around to telling the Pi what to do when the user pushes the physical push button. The method is already heavily commented, it is left to the reader to read them!  
+
+	````C#
+	/// <summary>
+	/// Fired by the GpioController whenever the physical push button's value changes
+	/// </summary>
+	/// <param name="sender"></param>
+	/// <param name="args"></param>
+	private void ButtonPin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
+	{
+	  //The arguments (args) provided to the event handler indicate if the button
+	  //is a FallingEdge (going from 3.3V to 0v) or RisingEdige (going from 0v to 3.3v)
+	  //Since the GPIO pin the button is connected to was initialized with it's pullup 
+	  //resistor ON, when the button is NOT PRESSED the pin is pulled UP to 3.3v.  
+	  //When the button IS PRESSED the pin values "falls" from 3.3V to 0V.  
+	  //So when we see a FallingEdge, we know the button is PUSHED (on == true)
+	  //otherwise, it is off (on == false)
+	  bool on = args.Edge == GpioPinEdge.FallingEdge;
+
+	  //We will use the "on" boolean value we just got from the physical button 
+	  //to set the state of the XAML ToggleButton's state in the UI.  
+	  //To do that, we can  TogglePinButton.IsChecked boolean propety to 
+	  //match the value of the "on" variable we just set.  However, since that 
+	  //causes a UI update (the button's visual state changes) we have to run that
+	  //code on the main UI thread.  We can do that by using the App's main UI
+	  //Dispatcher
+	  var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => {
+		 TogglePinButton.IsChecked = on;
+	  });
+	}
+	````
 
 ---
 

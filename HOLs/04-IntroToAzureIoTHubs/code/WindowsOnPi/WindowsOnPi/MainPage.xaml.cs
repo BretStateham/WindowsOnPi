@@ -116,6 +116,34 @@ namespace WindowsOnPi
     }
 
     /// <summary>
+    /// Used to turn the physical LED on or off.
+    /// </summary>
+    /// <param name="on">Boolean value representing the LED state.  
+    /// true = on, false = off</param>
+    void SetLedState(bool on)
+    {
+      if (ledPin != null)
+      {
+        if (on)
+        {
+          //Setting the pin LOW, pulls it down to ground
+          //and allows current to flow from the 3.3v source
+          //connected to the anode of the LED down through
+          //the cathode, and thus the LED is turned ON
+          ledPin.Write(GpioPinValue.Low);
+        }
+        else
+        {
+          //Setting the pin High, pulls it up to 3.3v
+          //which matches the 3.3v source connected 
+          //to the anode of the LED thus no current
+          //flows, and the LED is turned OFF
+          ledPin.Write(GpioPinValue.High);
+        }
+      }
+    }
+
+    /// <summary>
     /// Used to update the Text on the TogglePinButton button controler
     /// As well as to turn the physical LED on or off.
     /// </summary>
@@ -141,34 +169,6 @@ namespace WindowsOnPi
         //Set the content (text) displayed on the button
         //To indicate that the LED can now be turned ON (since it is off)
         TogglePinButton.Content = "Turn LED ON";
-      }
-    }
-
-    /// <summary>
-    /// Used to turn the physical LED on or off.
-    /// </summary>
-    /// <param name="on">Boolean value representing the LED state.  
-    /// true = on, false = off</param>
-    void SetLedState(bool on)
-    {
-      if (ledPin != null)
-      {
-        if (on)
-        {
-          //Setting the pin LOW, pulls it down to ground
-          //and allows current to flow from the 3.3v source
-          //connected to the anode of the LED down through
-          //the cathode, and thus the LED is turned ON
-          ledPin.Write(GpioPinValue.Low);
-        }
-        else
-        {
-          //Setting the pin High, pulls it up to 3.3v
-          //which matches the 3.3v source connected 
-          //to the anode of the LED thus no current
-          //flows, and the LED is turned OFF
-          ledPin.Write(GpioPinValue.High);
-        }
       }
     }
 
