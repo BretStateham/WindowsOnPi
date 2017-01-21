@@ -46,7 +46,7 @@ namespace WindowsOnPi
         StatusText.Text = ex.Message;
         return;
       }
-      StatusText.Text = "Status: Initialization Completed Successfully!";
+      //StatusText.Text = "Status: Initialization Completed Successfully!";
     }
 
     #region LED and Button Members
@@ -316,14 +316,22 @@ namespace WindowsOnPi
         settings.ClockFrequency = 500000;   /* 0.5MHz clock rate                                        */
         settings.Mode = SpiMode.Mode0;      /* The ADC expects idle-low clock polarity so we use Mode0  */
 
-        //Finally, initialize the Spi device with the give DeviceInfo Id and settings from above. 
-        SpiADC = await SpiDevice.FromIdAsync(deviceInfo[0].Id, settings);
+        try
+        {
+          //Finally, initialize the Spi device with the give DeviceInfo Id and settings from above. 
+          SpiADC = await SpiDevice.FromIdAsync(deviceInfo[0].Id, settings);
 
-        /* Now that everything is initialized, create a timer so we read analog data periodically */
-        adcTimer = new DispatcherTimer();
-        adcTimer.Tick += AdcTimer_Tick;
-        adcTimer.Interval = TimeSpan.FromMilliseconds(adcTimerPeriod);
-        adcTimer.Start();
+          /* Now that everything is initialized, create a timer so we read analog data periodically */
+          adcTimer = new DispatcherTimer();
+          adcTimer.Tick += AdcTimer_Tick;
+          adcTimer.Interval = TimeSpan.FromMilliseconds(adcTimerPeriod);
+          adcTimer.Start();
+        } catch( Exception ex)
+        {
+          string message = string.Format("An {0} occurred when initializing the ADC: {1}", ex.GetType().Name, ex.Message);
+          StatusText.Text = message;
+        }
+
       }
 
       /* If initialization fails, display the exception and stop running */
@@ -358,36 +366,45 @@ namespace WindowsOnPi
     /// </summary>
     public void ReadLightSensor()
     {
-      byte[] readBuffer = new byte[3]; /* Buffer to hold read data*/
-      byte[] writeBuffer = new byte[3] { 0x00, 0x00, 0x00 };
 
-      /* Setup the appropriate ADC configuration byte */
-      switch (ADC_CHIP)
+      try
       {
-        case AdcChip.MCP3002:
-          writeBuffer[0] = MCP3002_CONFIG;
-          break;
-        case AdcChip.MCP3208:
-          writeBuffer[0] = MCP3208_CONFIG;
-          break;
-        case AdcChip.MCP3008:
-          writeBuffer[0] = MCP3008_CONFIG[0];
-          writeBuffer[1] = MCP3008_CONFIG[1];
-          break;
-      }
+        byte[] readBuffer = new byte[3]; /* Buffer to hold read data*/
+        byte[] writeBuffer = new byte[3] { 0x00, 0x00, 0x00 };
 
-      //Read data from the ADC
-      SpiADC.TransferFullDuplex(writeBuffer, readBuffer);
+        /* Setup the appropriate ADC configuration byte */
+        switch (ADC_CHIP)
+        {
+          case AdcChip.MCP3002:
+            writeBuffer[0] = MCP3002_CONFIG;
+            break;
+          case AdcChip.MCP3208:
+            writeBuffer[0] = MCP3208_CONFIG;
+            break;
+          case AdcChip.MCP3008:
+            writeBuffer[0] = MCP3008_CONFIG[0];
+            writeBuffer[1] = MCP3008_CONFIG[1];
+            break;
+        }
 
-      //Convert the returned bytes into an integer value
-      adcLightSensorValue = convertToInt(readBuffer);
+        //Read data from the ADC
+        SpiADC.TransferFullDuplex(writeBuffer, readBuffer);
 
-      // UI updates must be invoked on the UI thread 
-      var task = this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-      {
+        //Convert the returned bytes into an integer value
+        adcLightSensorValue = convertToInt(readBuffer);
+
+        // UI updates must be invoked on the UI thread 
+        var task = this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+        {
         //Display the light sensor value in the UI via the LightSensorValueText control
         LightSensorValueText.Text = adcLightSensorValue.ToString();
-      });
+        });
+      } catch(Exception ex)
+      {
+        string message = string.Format("An {0} occurred when reading the light sensor: {1}", ex.GetType().Name, ex.Message);
+        StatusText.Text = message;
+      }
+
 
     }
 
@@ -594,10 +611,13 @@ namespace WindowsOnPi
             Debug.Write("Turning the LED on!");
             //Simulate the toggle button being Checked
             TogglePinButton.IsChecked = true;
+            StatusText.Text = String.Format("Turned the LED on because the user asked Cortana to \"{0}\"", result.Text);
             break;
           case "TurnLedOff":
             Debug.Write("Turning the LED off!");
             //Simulate the toggle button being UnChecked
+            StatusText.Text
+              = String.Format("Turning the LED off because the user asked Cortana to \"{0}\"", result.Text);
             TogglePinButton.IsChecked = false;
             break;
           default:
@@ -608,5 +628,30 @@ namespace WindowsOnPi
       }
     }
 
+    protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+    {
+      base.OnNavigatingFrom(e);
+      ReleaseGpio();
+    }
+
+    private void ReleaseGpio()
+    {
+      if (ledPin != null)
+      {
+        ledPin.Dispose();
+        ledPin = null;
+      }
+      if (buttonPin != null)
+      {
+        buttonPin.Dispose();
+        buttonPin = null;
+      }
+      if(SpiADC != null)
+      {
+        SpiADC.Dispose();
+        SpiADC = null;
+      }
+      
+    }
   }
 }
