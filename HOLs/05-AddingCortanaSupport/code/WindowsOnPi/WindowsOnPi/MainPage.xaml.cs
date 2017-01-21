@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Gpio;
 using Windows.Devices.Spi;
+using Windows.Media.SpeechRecognition;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace WindowsOnPi
 {
@@ -89,6 +91,7 @@ namespace WindowsOnPi
 
       //Init LED pin
       ledPin = gpio.OpenPin(LED_PIN);
+      
       ledPin.SetDriveMode(GpioPinDriveMode.Output);
       SetLedState(false);
 
@@ -573,5 +576,37 @@ namespace WindowsOnPi
     }
 
     #endregion IoT Hub Members
+
+    protected async override void OnNavigatedTo(NavigationEventArgs e)
+    {
+      base.OnNavigatedTo(e);
+
+      SpeechRecognitionResult result = e.Parameter as SpeechRecognitionResult;
+
+      if (result != null)
+      {
+
+        string commandName = result.RulePath[0];
+
+        switch (commandName)
+        {
+          case "TurnLedOn":
+            Debug.Write("Turning the LED on!");
+            //Simulate the toggle button being Checked
+            TogglePinButton.IsChecked = true;
+            break;
+          case "TurnLedOff":
+            Debug.Write("Turning the LED off!");
+            //Simulate the toggle button being UnChecked
+            TogglePinButton.IsChecked = false;
+            break;
+          default:
+            Debug.Write(string.Format("I don't recognize the command \"{0}\"", commandName));
+            break;
+        }
+
+      }
+    }
+
   }
 }

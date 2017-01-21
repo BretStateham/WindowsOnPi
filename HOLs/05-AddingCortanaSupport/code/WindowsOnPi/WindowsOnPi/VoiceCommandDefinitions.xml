@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="en-us" Name="CustomCommandSet">
+    <AppName> MiPi </AppName>
+    <Example> Turn the LED on, Turn the LED Off</Example>
+
+    <Command Name="TurnLedOn">
+
+      <Example> "Turn on the Light", "Turn on the LED", "Turn the LED on", "LED on" </Example>
+
+      <ListenFor>Turn on the Light</ListenFor>
+      <ListenFor>Turn the light on</ListenFor>
+      <ListenFor>Light On</ListenFor>
+      <ListenFor>Make it Brighter</ListenFor>
+      <ListenFor>Light it up</ListenFor>
+      <ListenFor>Turn on the LED</ListenFor>
+      <ListenFor>Turn the LED on</ListenFor>
+      <ListenFor>LED on</ListenFor>
+
+      <Feedback>I'll turn the LED on</Feedback>
+
+      <Navigate />
+
+    </Command>
+
+    <Command Name="TurnLedOff">
+
+      <Example> "Turn off the LED", "Turn the LED off", "LED off" </Example>
+
+      <ListenFor>Turn off the light</ListenFor>
+      <ListenFor>Turn the light off</ListenFor>
+      <ListenFor>Light Off</ListenFor>
+      <ListenFor>Make it darker</ListenFor>
+      <ListenFor>go dark</ListenFor>
+      <ListenFor>Turn off the LED</ListenFor>
+      <ListenFor>Turn the LED off</ListenFor>
+      <ListenFor>LED off</ListenFor>
+
+      <Feedback>I'll turn the LED off</Feedback>
+
+      <Navigate />
+
+    </Command>
+
+  </CommandSet>
+</VoiceCommands>

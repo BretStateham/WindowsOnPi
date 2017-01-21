@@ -33,10 +33,11 @@
       x:Name="StatusText"
       Text="STATUS:"
       Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-      FontSize="36" FontWeight="Bold"
+      FontSize="24" FontWeight="Bold"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
-      Margin="10"/>
+      Margin="10"
+      TextWrapping="Wrap"/>
 
     <ToggleButton 
       x:Name="TogglePinButton"
@@ -74,7 +75,7 @@
     <CheckBox
       x:Name="ToggleLedWhenDark"
       Content="Toggle LED When It Is Dark"
-      IsChecked="True"
+      IsChecked="False"
       Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
       FontSize="24" FontWeight="Bold"
       HorizontalAlignment="Center"
