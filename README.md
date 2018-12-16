@@ -67,7 +67,7 @@ Top to bottom, left to right:
 
 There are some additional components that you will need to be successful:
 
-- **A Monitor with an HDMI input** (Or an an adapter that will adapt the HDMI cable from the Raspberry Pi to an appropriate connection on your monitor)
+- **A Monitor with an HDMI input** (Or an adapter that will adapt the HDMI cable from the Raspberry Pi to an appropriate connection on your monitor)
 
 - A **USB Keyboard and Mouse** for the Raspberry Pi 
 
